@@ -1,3 +1,3 @@
-# bom dia leopoldo
+# Trabalho de estrutura de dados
 
-este é um teste em markdown
+por Felipe Trentin, Gabriela Rocha e Marina J. Ramalho
