@@ -16,9 +16,9 @@ public:
     Graph(int numVertices);
     void setVertice(int vertice, int posX, int posY, std::string name, int type);
     void setEdges(int src, int dest, int weight);
-    void setVeichle(int vertice, Veichle* dados);
+    void setVeichle(int vertice, Vehicle* dados);
     
-    Veichle* getVeichle(int vertice);
+    Vehicle* getVeichle(int vertice);
     Vertice* getVertice(int vertice);
     int getWeight(int src, int dest);
 };

@@ -4,7 +4,7 @@
 #include <string>
 #include <SFML/Graphics/Color.hpp>
 
-struct Veichle{
+struct Vehicle{
     int speed;
     int capacity;
     char typemask;
@@ -38,14 +38,14 @@ const sf::Color typeColors[] = {
 
 // Estrutura de um nó na lista de adjacência
 struct Vertice {
-    Veichle* veichle;
+    Vehicle* vehicle;
     float posX;
     float posY;
     std::string name;
 
     int type;
 
-    Vertice(int type, float posX, float posY, std::string name) : type(type), posX(posX), posY(posY), name(name), veichle(nullptr){}
+    Vertice(int type, float posX, float posY, std::string name) : type(type), posX(posX), posY(posY), name(name), vehicle(nullptr){}
 };
 
 #endif

@@ -23,13 +23,13 @@ void Graph::setEdges(int src, int dest, int weight){
 }
 
 // Define informações adicionais para um nó
-void Graph::setVeichle(int vertice, Veichle *dados){
-    nodeInfo[vertice].veichle = dados;
+void Graph::setVeichle(int vertice, Vehicle *dados){
+    nodeInfo[vertice].vehicle = dados;
 }
 
 // Obtém informações adicionais de um nó
-Veichle *Graph::getVeichle(int vertice){
-    return nodeInfo[vertice].veichle;
+Vehicle *Graph::getVeichle(int vertice){
+    return nodeInfo[vertice].vehicle;
 }
 
 Vertice *Graph::getVertice(int vertice){
