@@ -23,7 +23,7 @@ public:
     void drawAssistant();
     void close();
     void drawRoad(sf::Vector2f from, sf::Vector2f to);
-    void loadGraph(std::string path);
+    bool loadGraph(std::string path);
 private:
     sf::ContextSettings settings;
     sf::RenderWindow window_;
@@ -31,6 +31,9 @@ private:
     Graph map_;
     sf::View view1;
     sf::Clock deltaClock;
+
+    bool scrolling = false;
+    sf::Vector2i scrollPos_ = sf::Vector2i(0,0);
 
 };
 

@@ -72,16 +72,25 @@ void Application::draw(){
     window_.display();
 }
 
-void Application::loadGraph(std::string path){
+bool Application::loadGraph(std::string path){
 
     rapidxml::file<> xmlFile(path.c_str()); // Default template is char
     rapidxml::xml_document<> doc;
     doc.parse<0>(xmlFile.data());
 
     rapidxml::xml_node<> *city = doc.first_node("city");
+    if(city == nullptr){
+        return false;
+    }
     rapidxml::xml_node<> *nodesNode = city->first_node("nodes");
     rapidxml::xml_node<> *edgesNode = city->first_node("edges");
 
+    if(nodesNode == nullptr){
+        return false;
+    }
+    if(edgesNode == nullptr){
+        return false;
+    }
 
     for (rapidxml::xml_node<> *node = nodesNode->first_node("node"); node != nullptr; node = node->next_sibling()) {
         map_.setVertice(
@@ -100,6 +109,7 @@ void Application::loadGraph(std::string path){
             std::stoi(edge->first_attribute("distance")->value())
         );
     }
+    return true;
 }
 
 void Application::run() {
@@ -107,6 +117,10 @@ void Application::run() {
     // LOAD GRAPH
     if(!ImGui::SFML::Init(window_)){
         printf("\nError initialising SFML\n");
+    }
+
+    if(!loadGraph("map.xml")){
+        printf("\nERROR LOADING MAP!\n");
     }
 
     while(window_.isOpen()) {
@@ -118,11 +132,21 @@ void Application::run() {
                 window_.close();
             }
         }
-        
+
         if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)){
-            sf::Vector2i mousepos = sf::Mouse::getPosition();
-            view1.move(mousepos.x - 1920/2, mousepos.y - 1080/2);
-            sf::Mouse::setPosition(sf::Vector2(1920/2,  1080/2));
+            if(!scrolling){
+                scrolling = true;
+                scrollPos_ = sf::Mouse::getPosition();
+            }else{
+                sf::Vector2i mousepos = sf::Mouse::getPosition();
+                view1.move(sf::Vector2f(
+                    (mousepos - scrollPos_).x, 
+                    (mousepos - scrollPos_).y
+                ));
+                sf::Mouse::setPosition(scrollPos_);
+            }
+        }else{
+            scrolling = false;
         }
 
         ImGui::SFML::Update(window_, deltaClock.restart());
