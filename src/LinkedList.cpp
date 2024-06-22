@@ -10,7 +10,7 @@ LinkedList::~LinkedList() {
     freeMemory();
 }
 
-// Método para criar um novo nó
+// Método criar um novo nó
 Node* LinkedList::createNode(int value) {
     Node* newNode = new Node;
     newNode->value = value;
@@ -18,7 +18,7 @@ Node* LinkedList::createNode(int value) {
     return newNode;
 }
 
-// Método para imprimir a lista
+/* Método Imprimir a lista
 void LinkedList::printList() const {
     Node* aux = head;
     int n = 0;
@@ -28,14 +28,11 @@ void LinkedList::printList() const {
         n++;
     }
     std::cout << std::endl << "O total de itens da lista foi de " << n << std::endl;
-}
+}*/
 
 // Método para adicionar um elemento no final da lista
 void LinkedList::addEnd(int value) {
-    std::cout << "\nLISTA ANTERIOR: ";
-    printList();
-
-    Node* newNode = createNode(value);
+    Node* newNode = createNode(value); //cria um nó com o novo valor
 
     // Caso a lista esteja vazia, o novo nó se torna o primeiro
     if (head == nullptr) {
@@ -49,20 +46,12 @@ void LinkedList::addEnd(int value) {
         // Adiciona o novo nó no final
         aux->next = newNode;
     }
-
-    std::cout << "\nInserindo o elemento " << value << std::endl;
-    std::cout << "NOVA LISTA: ";
-    printList();
 }
 
 // Método para remover um nó com valor específico
 void LinkedList::removeNode(int value) {
-    std::cout << "\nLISTA ANTERIOR: ";
-    printList();
-
-    // Caso a lista esteja vazia
+    // Se a lista estiver vazia, não faz nada
     if (head == nullptr) {
-        std::cout << "Elemento não encontrado" << std::endl;
         return;
     }
 
@@ -70,9 +59,9 @@ void LinkedList::removeNode(int value) {
     if (head->value == value) {
         Node* temp = head;
         head = head->next;
-        std::cout << "Elemento removido foi " << temp->value << std::endl;
         delete temp;
-    } else {
+    } else { 
+        //se não for o primeiro
         Node* aux = head;
         Node* previous = nullptr;
 
@@ -85,18 +74,14 @@ void LinkedList::removeNode(int value) {
         // Se o nó foi encontrado, remove-o
         if (aux != nullptr) {
             previous->next = aux->next;
-            std::cout << "Elemento removido foi " << aux->value << std::endl;
             delete aux;
         } else {
-            std::cout << "Elemento não encontrado" << std::endl;
+            return; //elemento não encontrado
         }
     }
-
-    std::cout << "NOVA LISTA: ";
-    printList();
 }
 
-// Método para liberar a memória alocada pela lista
+// Liberar a memória alocada pela lista
 void LinkedList::freeMemory() {
     Node* current = head;
     Node* temp;

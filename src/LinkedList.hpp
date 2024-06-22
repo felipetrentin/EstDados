@@ -3,13 +3,13 @@
 
 #include <iostream>
 
-// Definição da estrutura de um nó
+// Estrutura de um nó
 struct Node {
     int value;
     Node* next;
 };
 
-// Definição da classe LinkedList
+// Classe LinkedList
 class LinkedList {
 private:
     Node* head; // Cabeça da lista, não armazena valor
@@ -22,7 +22,7 @@ public:
     ~LinkedList();
 
     // Métodos
-    void printList() const; //imprime a lista
+    //void printList() const; //imprime a lista
     void addEnd(int value); //adiciona ao final da lista
     void removeNode(int value); //remove um nó
     void freeMemory(); //libera a memória
