@@ -7,6 +7,10 @@
 struct Veichle{
     int speed;
     int capacity;
+    char typemask;
+
+    float t_way; //vai de 0 até 1 sendo 0=origem e 1=destino
+    
 };
 
 enum NodeType{

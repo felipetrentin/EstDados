@@ -12,6 +12,7 @@ private:
     std::vector<Vertice> nodeInfo; // Array de ponteiros genéricos para armazenar informações adicionais de cada nó
 
 public:
+    Graph();
     Graph(int numVertices);
     void setVertice(int vertice, int posX, int posY, std::string name, int type);
     void setEdges(int src, int dest, int weight);
