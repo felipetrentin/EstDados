@@ -13,6 +13,19 @@ struct Vehicle{
     
 };
 
+struct Occurence {
+    char description; // será que precisa colocar aqueles colchetes?
+    int place; //definidos como os nós... precisamos ver isso aqui, como ele vai identificar ou se vai sortear
+    int priority; //Precisa definir elas no types.hpp tbm 
+};
+
+enum priority_types{ //tá certo declarar assim?
+    HIGH = 45,
+    MEDIUM = 90,
+    LOW = 135, 
+    NON_EMERGENCY = 180,
+};
+
 enum NodeType{
     UNKNOWN,
     HOSPITAL,
