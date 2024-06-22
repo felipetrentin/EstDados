@@ -3,13 +3,13 @@
 
 #include <iostream>
 
-// Definição da estrutura de um nó
+// Estrutura de um nó
 struct Node {
     int value;
     Node* next;
 };
 
-// Definição da classe ListaEncadeada
+// Classe LinkedList
 class LinkedList {
 private:
     Node* head; // Cabeça da lista, não armazena valor
@@ -21,15 +21,15 @@ public:
     // Destrutor
     ~LinkedList();
 
-    // Métodos da lista encadeada
-    void printList() const;
-    void addEnd(int value);
-    void removeNode(int value);
-    void freeMemory();
+    // Métodos
+    //void printList() const; //imprime a lista
+    void addEnd(int value); //adiciona ao final da lista
+    void removeNode(int value); //remove um nó
+    void freeMemory(); //libera a memória
 
 private:
-    // Método privado para criar um novo nó
-    Node* createNode(int value);
+    // Métodos privados
+    Node* createNode(int value); //Cria um novo nó
 };
 
 #endif

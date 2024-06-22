@@ -19,7 +19,7 @@ public:
         delete[] data;
     }
 
-    // Método para enfileirar (add)
+    // Enfileirar (add)
     void enqueue(int item) {
         if (isFull()) {
             throw std::overflow_error("Queue is full");
@@ -33,12 +33,14 @@ public:
         items++;
     }
 
-    // Método para desenfileirar (remove)
+    // Desenfileirar (remove)
     int dequeue() {
+        //caso a fila esteja vazia
         if (isEmpty()) {
             throw std::underflow_error("Queue is empty");
         }
 
+        //caso a fila não esteja vazia
         int temp = data[front++];
 
         if (front == size) {
