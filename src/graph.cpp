@@ -1,12 +1,5 @@
-#include <stdlib.h>
-#include <vector>
-#include <string>
-
 #include "graph.hpp"
 
-Graph::Graph(){
-    
-}
 
 Graph::Graph(int numVertices) : numVertices(numVertices){
     adjMatrix.resize(numVertices, std::vector<int>(numVertices, 0)); // Inicializa matriz de adjacência com zeros.

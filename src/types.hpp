@@ -9,8 +9,10 @@ struct Vehicle{
     int capacity;
     char typemask;
 
-    float t_way; //vai de 0 até 1 sendo 0=origem e 1=destino
-    
+    bool traveling;
+    float travelStartTime;
+    int source;
+    int destination;
 };
 
 enum NodeType{

@@ -8,11 +8,11 @@
 #include <SFML/Window/Event.hpp>
 #include <imgui-SFML.h>
 #include <imgui.h>
+#include <string>
 
 #include "rapidxml_utils.hpp"
-
-#include <string>
 #include "graph.hpp"
+#include "VehicleManager.hpp"
 
 class Application{
 public:
@@ -24,6 +24,7 @@ public:
     void close();
     void drawRoad(sf::Vector2f from, sf::Vector2f to);
     bool loadGraph(std::string path);
+    void drawInfo();
 private:
     sf::ContextSettings settings;
     sf::RenderWindow window_;
@@ -31,9 +32,13 @@ private:
     Graph map_;
     sf::View view1;
     sf::Clock deltaClock;
-
+    sf::Clock gameClock;
+    sf::Time dt_;
+    float dtHist_[100];
     bool scrolling = false;
     sf::Vector2i scrollPos_ = sf::Vector2i(0,0);
+    uint32_t milisElapsedTick_ = 0;
+    VehichleManager vManager_;
 
 };
 

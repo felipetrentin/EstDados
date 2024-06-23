@@ -5,11 +5,12 @@
 
 Application::Application() : 
     //lista de inicialização do construtor
+    settings(0, 0, 8, 1, 1, sf::ContextSettings::Default,false),
     window_(sf::VideoMode(1920, 1080), "Meanwhile in Baltimore: [compiled: " __DATE__ " " __TIME__ "]", sf::Style::Default, settings),
     map_(ncasas),
-    view1(sf::FloatRect(0.f, 0.f, window_.getSize().x, window_.getSize().y))
+    view1(sf::FloatRect(0.f, 0.f, window_.getSize().x, window_.getSize().y)),
+    vManager_(10, &map_)
 {
-    settings.antialiasingLevel = 8;
     window_.setVerticalSyncEnabled(true);
     font_.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSans.ttf");
 }
@@ -28,14 +29,49 @@ void Application::drawRoad(sf::Vector2f from, sf::Vector2f to){
     window_.draw(line, 2, sf::Lines);
 }
 
-void Application::draw(){
+void Application::drawInfo(){
     ImGui::Begin("Informações", nullptr, ImGuiWindowFlags_NoMove);
+
+    for(int i = 0; i<IM_ARRAYSIZE(dtHist_); i++){
+        if(i == IM_ARRAYSIZE(dtHist_) - 1){
+            dtHist_[i] = dt_.asMicroseconds();
+        }else{
+            dtHist_[i] = dtHist_[i + 1];
+        }
+    }
+
     ImGui::SetWindowPos(ImVec2(0, 0));
-    ImGui::Text("x position:");
-    ImGui::Text(std::to_string(view1.getCenter().x).c_str());
-    ImGui::Text("y position:");
-    ImGui::Text(std::to_string(view1.getCenter().y).c_str());
+    char timeOverlay[32];
+    sprintf(timeOverlay, "time: %7.2fs", gameClock.getElapsedTime().asSeconds());
+    ImGui::Text(timeOverlay);
+
+    if(ImGui::CollapsingHeader("Camera")){
+        ImGui::Text("x position:");
+        ImGui::SameLine();
+        ImGui::Text(std::to_string(view1.getCenter().x).c_str());
+        ImGui::Text("y position:");
+        ImGui::SameLine();
+        ImGui::Text(std::to_string(view1.getCenter().y).c_str());
+    }
+    if(ImGui::CollapsingHeader("Performance")){
+        char txt[32];
+        sprintf(txt, "dt: %dus", dt_.asMicroseconds());
+        ImGui::Text(txt);
+        
+        float average = 0.0f;
+        for (int n = 0; n < IM_ARRAYSIZE(dtHist_); n++)
+            average += dtHist_[n];
+        average /= (float)IM_ARRAYSIZE(dtHist_);
+        char overlay[32];
+        sprintf(overlay, "avg %7.2fus", average);
+        ImGui::PlotLines("", dtHist_, IM_ARRAYSIZE(dtHist_), 1, overlay, 3000.0f, 50000.0f, ImVec2(0,120));
+    }
+    vManager_.vehiclesDebugMenu();
     ImGui::End();
+}
+
+void Application::draw(){
+    drawInfo();
 
     drawAssistant();
 
@@ -67,6 +103,8 @@ void Application::draw(){
             window_.draw(label);
         }
     }
+
+    ImGui::ShowDemoWindow();
 
     ImGui::SFML::Render(window_);
     window_.display();
@@ -123,6 +161,7 @@ void Application::run() {
         printf("\nERROR LOADING MAP!\n");
     }
 
+    gameClock.restart();
     while(window_.isOpen()) {
         sf::Event event;
         
@@ -133,7 +172,7 @@ void Application::run() {
             }
         }
 
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)){
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && window_.hasFocus()){
             if(!scrolling){
                 scrolling = true;
                 scrollPos_ = sf::Mouse::getPosition();
@@ -148,9 +187,12 @@ void Application::run() {
         }else{
             scrolling = false;
         }
-
-        ImGui::SFML::Update(window_, deltaClock.restart());
-
+        dt_ = deltaClock.restart();
+        ImGui::SFML::Update(window_, dt_);
+        milisElapsedTick_ += dt_.asMilliseconds();
+        if(milisElapsedTick_ >= 100){
+            //game tick update
+        }
         draw();
 
     }
