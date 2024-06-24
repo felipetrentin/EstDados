@@ -3,6 +3,7 @@
 #include "DecisionTree.hpp"
 
 DecisionTree::DecisionTree() {
+    root = nullptr;
 //consertar isso
 }
 

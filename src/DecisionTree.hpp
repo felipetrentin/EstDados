@@ -15,10 +15,12 @@ class DecisionTree{
     //Construtor
     DecisionTree();
 
-    void treeFree(TreeNode *node) ;
-    int predict(TreeNode *root, int *sample);
+    void treeFree(TreeNode *newNode) ;
+    int predict(TreeNode *root, int *instance);
 
     private:
     TreeNode* createNode(int attributeIndex, int decision);
+
+    TreeNode* root;
 };
 #endif
