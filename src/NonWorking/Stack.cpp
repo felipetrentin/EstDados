@@ -20,7 +20,6 @@ public:
 
    void push(int value) {
         if (top >= size - 1) {
-            // Stack overflow
             std::cout << "Stack overflow" << std::endl;
             return;
         }
@@ -30,17 +29,15 @@ public:
     // Função pop
     int pop() {
         if (top < 0) {
-            // Stack underflow
             std::cout << "Stack underflow" << std::endl;
             return -1;
         }
         return stackArray[top--];
     }
 
-    // Função peek - mostra o topo
+    // mostra o topo
     int top() const {
         if (top < 0) {
-            // Stack is empty
             std::cout << "Stack is empty" << std::endl;
             return -1;
         }
@@ -56,7 +53,7 @@ public:
         return top >= size - 1;
     }
 
-    // exibir os elementos da pilha
+    // exibir os elementos da pilha para debug
     void displayText() const {
         if (isEmpty()) {
             std::cout << "Stack is empty." << std::endl;
