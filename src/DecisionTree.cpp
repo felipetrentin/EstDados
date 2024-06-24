@@ -3,36 +3,36 @@
 #include "DecisionTree.hpp"
 
 DecisionTree::DecisionTree() {
-
+//consertar isso
 }
 
 TreeNode* DecisionTree::createNode(int attributeIndex, int decision) {
-    TreeNode *node = (TreeNode*)malloc(sizeof(TreeNode));
-    if (node == NULL) {
+    TreeNode *newNode = (TreeNode*)malloc(sizeof(TreeNode));
+    if (newNode == NULL) {
         perror("Erro, sem memória");
         exit(EXIT_FAILURE);
     }
-    node->attributeIndex = attributeIndex;
-    node->decision = decision;
-    node->leftChild = NULL;
-    node->rightChild = NULL;
-    return node;
+    newNode->attributeIndex = attributeIndex;
+    newNode->decision = decision;
+    newNode->leftChild = NULL;
+    newNode->rightChild = NULL;
+    return newNode;
 }
 
 // Liberando memória
-void DecisionTree::treeFree(TreeNode *node) {
-    if (node != NULL) {
-        treeFree(node->leftChild);
-        treeFree(node->rightChild);
-        free(node);
+void DecisionTree::treeFree(TreeNode *newNode) {
+    if (newNode != NULL) {
+        treeFree(newNode->leftChild);
+        treeFree(newNode->rightChild);
+        free(newNode);
     }
 }
 
 // Previsão
-int DecisionTree::predict(TreeNode *root, int *sample) {
+int DecisionTree::predict(TreeNode *root, int *instance) {
     TreeNode *current = root;
     while (current->decision == -1) {
-        if (sample[current->attributeIndex] == 0) {
+        if (instance[current->attributeIndex] == 0) {
             current = current->leftChild;
         } else {
             current = current->rightChild;
