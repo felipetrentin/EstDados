@@ -16,11 +16,10 @@ class DecisionTree{
     DecisionTree();
 
     void treeFree(TreeNode *newNode) ;
-    int predict(TreeNode *root, int *instance);
+    int predict(TreeNode *root, int *instance);//mudar os atributos: tempo(peso) e 
 
     private:
     TreeNode* createNode(int attributeIndex, int decision);
-
     TreeNode* root;
 };
 #endif

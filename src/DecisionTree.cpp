@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "DecisionTree.hpp"
+#include "Dijkstra.hpp"
 
 DecisionTree::DecisionTree() {
     root = nullptr;
