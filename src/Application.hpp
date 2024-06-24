@@ -35,7 +35,7 @@ private:
     bool scrolling = false;
     sf::Vector2i scrollPos_ = sf::Vector2i(0,0);
     sf::Clock eventClock;
-    EMSManager events;
+    EMSManager eventsManager;
 
 };
 

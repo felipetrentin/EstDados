@@ -7,7 +7,8 @@ Application::Application() :
     //lista de inicialização do construtor
     window_(sf::VideoMode(1920, 1080), "Meanwhile in Baltimore: [compiled: " __DATE__ " " __TIME__ "]", sf::Style::Default, settings),
     map_(ncasas),
-    view1(sf::FloatRect(0.f, 0.f, window_.getSize().x, window_.getSize().y))
+    view1(sf::FloatRect(0.f, 0.f, window_.getSize().x, window_.getSize().y)),
+    eventsManager(5)
 {
     settings.antialiasingLevel = 8;
     window_.setVerticalSyncEnabled(true);
