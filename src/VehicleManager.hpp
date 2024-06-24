@@ -9,8 +9,8 @@
 #include <imgui.h>
 
 #include "types.hpp"
-
 #include "graph.hpp"
+#include "AvlTree.hpp"
 
 class VehichleManager{
 public:
@@ -20,13 +20,13 @@ public:
     Vehicle* getVehicle(int id);
     void vehiclesDebugMenu();
     void update(sf::Clock* gameClock);
-    void spawnVehichle(Vehicle* ve, int nodeID);
-    void updateVehicle(Vehicle* ve, sf::Clock* gameClock);
+    void spawnVehichle(int vehicleID, int nodeID);
+    void updateVehicle(int vehicleID, sf::Clock* gameClock);
     sf::Vector2f getVehiclePos(Vehicle* ve, sf::Clock* deltaClock);
 private:
     const sf::Vector2f lerp(sf::Vector2f a, sf::Vector2f b, float t);
     int numOfUnits_;
-    Vehicle* automobiles;
+    AVLTree<Vehicle> automobiles;
     Graph* graph_;
     /* data */
 };

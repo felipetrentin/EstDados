@@ -39,7 +39,6 @@ private:
     sf::Vector2i scrollPos_ = sf::Vector2i(0,0);
     uint32_t milisElapsedTick_ = 0;
     VehichleManager vManager_;
-
 };
 
 #endif

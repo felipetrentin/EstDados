@@ -9,10 +9,11 @@ Application::Application() :
     window_(sf::VideoMode(1920, 1080), "Meanwhile in Baltimore: [compiled: " __DATE__ " " __TIME__ "]", sf::Style::Default, settings),
     map_(ncasas),
     view1(sf::FloatRect(0.f, 0.f, window_.getSize().x, window_.getSize().y)),
-    vManager_(10, &map_)
+    vManager_(2, &map_)
 {
     window_.setVerticalSyncEnabled(true);
     font_.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSans.ttf");
+    
 }
 
 void Application::drawAssistant(){
@@ -39,6 +40,7 @@ void Application::drawInfo(){
             dtHist_[i] = dtHist_[i + 1];
         }
     }
+    
 
     ImGui::SetWindowPos(ImVec2(0, 0));
     char timeOverlay[32];
@@ -55,7 +57,7 @@ void Application::drawInfo(){
     }
     if(ImGui::CollapsingHeader("Performance")){
         char txt[32];
-        sprintf(txt, "dt: %dus", dt_.asMicroseconds());
+        sprintf(txt, "dt: %lldus", dt_.asMicroseconds());
         ImGui::Text(txt);
         
         float average = 0.0f;
@@ -66,11 +68,12 @@ void Application::drawInfo(){
         sprintf(overlay, "avg %7.2fus", average);
         ImGui::PlotLines("", dtHist_, IM_ARRAYSIZE(dtHist_), 1, overlay, 3000.0f, 50000.0f, ImVec2(0,120));
     }
-    vManager_.vehiclesDebugMenu();
+    //vManager_.vehiclesDebugMenu();
     ImGui::End();
 }
 
 void Application::draw(){
+    
     drawInfo();
 
     drawAssistant();
@@ -103,6 +106,18 @@ void Application::draw(){
             window_.draw(label);
         }
     }
+
+    /*
+    sf::CircleShape car(10.f);
+    car.setFillColor(sf::Color::Transparent);
+    car.setOutlineColor(sf::Color(255,100,255,255));
+    car.setOutlineThickness(2.0f);
+
+    for(int k=0; k<10; k++){
+        car.setPosition(vManager_.getVehiclePos(vManager_.getVehicle(k), &gameClock));
+        window_.draw(car);
+    }
+    */
 
     ImGui::ShowDemoWindow();
 
@@ -162,6 +177,7 @@ void Application::run() {
     }
 
     gameClock.restart();
+
     while(window_.isOpen()) {
         sf::Event event;
         
@@ -191,8 +207,12 @@ void Application::run() {
         ImGui::SFML::Update(window_, dt_);
         milisElapsedTick_ += dt_.asMilliseconds();
         if(milisElapsedTick_ >= 100){
+            milisElapsedTick_ = 0;
             //game tick update
+
+
         }
+
         draw();
 
     }

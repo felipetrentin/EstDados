@@ -2,17 +2,31 @@
 
 VehichleManager::VehichleManager(int numOfUnits, Graph* graph) :
     numOfUnits_(numOfUnits),
-    graph_(graph)
+    graph_(graph),
+    automobiles()
 {
-    automobiles = (Vehicle*)malloc(sizeof(Vehicle) * numOfUnits_);
+    for(int i = 0; i<numOfUnits_; i++){
+        printf("spawning %d", i);
+        spawnVehichle(i, i);
+    }
 }
 
 Vehicle* VehichleManager::getVehicle(int id){
-    return &(automobiles[id]);
+    if(id < numOfUnits_ && id>=0){
+        return automobiles.get(id);
+    }else{
+        return nullptr;
+    }
+    
 }
+
+
 
 // faz a interpolação entre a origem e destino no grafo, de acordo com o tempo passado.
 sf::Vector2f VehichleManager::getVehiclePos(Vehicle* ve, sf::Clock* gameClock){
+    if (ve == nullptr){
+        return sf::Vector2f(0, 0);
+    }
     Vertice* startVert = graph_->getVertice(ve->source);
     if(ve->traveling){
         Vertice* endVert = graph_->getVertice(ve->destination);
@@ -57,13 +71,19 @@ void VehichleManager::vehiclesDebugMenu(){
     }
 }
 
-void VehichleManager::spawnVehichle(Vehicle* ve, int nodeID){
-    ve->source = nodeID;
-    ve->traveling = false;
-    graph_->setVeichle(nodeID, ve);
+void VehichleManager::spawnVehichle(int vehichleID, int nodeID){
+    numOfUnits_ ++;
+    Vehicle ve;
+    ve.capacity = 100;
+    ve.speed = 3;
+    ve.typemask= 0;
+    ve.source = nodeID;
+    ve.traveling = false;
+    automobiles.insert(ve, vehichleID);
+    graph_->setVeichle(nodeID, &ve);
 }
 
-void VehichleManager::updateVehicle(Vehicle* ve, sf::Clock* gameClock){
+void VehichleManager::updateVehicle(int vehicleID, sf::Clock* gameClock){
 
 }
 
@@ -73,7 +93,7 @@ void VehichleManager::update(sf::Clock* gameClock){
 
 
 VehichleManager::~VehichleManager(){
-    free(automobiles);
+    //automobiles.~AVLTree();
 }
 
 const sf::Vector2f VehichleManager::lerp(sf::Vector2f a, sf::Vector2f b, float t){
