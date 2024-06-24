@@ -15,11 +15,11 @@ struct Vehicle{
 
 struct Occurence {
     char description; // será que precisa colocar aqueles colchetes?
-    int place; //definidos como os nós... precisamos ver isso aqui, como ele vai identificar ou se vai sortear
-    int priority; //Precisa definir elas no types.hpp tbm 
+    int place; //que são os NodeTypes? Ou vamos colocar os endereços mesmo?
+    int priority;
 };
 
-enum priority_types{ //tá certo declarar assim?
+enum priority_type{ //tá certo declarar assim?
     HIGH = 45,
     MEDIUM = 90,
     LOW = 135, 
