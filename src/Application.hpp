@@ -9,10 +9,10 @@
 #include <imgui-SFML.h>
 #include <imgui.h>
 
-#include "rapidxml_utils.hpp"
-
 #include <string>
+#include "rapidxml_utils.hpp"
 #include "graph.hpp"
+#include "EMSManager.hpp"
 
 class Application{
 public:
@@ -34,6 +34,8 @@ private:
 
     bool scrolling = false;
     sf::Vector2i scrollPos_ = sf::Vector2i(0,0);
+    sf::Clock eventClock;
+    EMSManager events;
 
 };
 

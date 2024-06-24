@@ -122,7 +122,7 @@ void Application::run() {
     if(!loadGraph("map.xml")){
         printf("\nERROR LOADING MAP!\n");
     }
-
+    eventClock.restart();
     while(window_.isOpen()) {
         sf::Event event;
         
@@ -151,7 +151,13 @@ void Application::run() {
 
         ImGui::SFML::Update(window_, deltaClock.restart());
 
+        if(eventClock.getElapsedTime().asMilliseconds() >= 1000){
+            eventClock.restart();
+            
+        }
+
         draw();
+        
 
     }
 

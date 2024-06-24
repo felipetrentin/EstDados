@@ -18,7 +18,7 @@ int PriorityList::getPriority(Occurrence* oc){
     return oc->priority;
 } //pega a prioridade da struct occurrence e retorna o valor dela;
 
-Node *PriorityList::newNode(Occurrence oc){ //o mesmo método que o da Circular list, porém agora olhando a prioridade
+PriorityList::Node *PriorityList::newNode(Occurrence oc){ //o mesmo método que o da Circular list, porém agora olhando a prioridade
     Node* newElement = (Node*) malloc (sizeof (Node)); //alocação dinâmica dos nós
     newElement->occurrence = oc;
     newElement->nextNode = nullptr;
@@ -38,12 +38,40 @@ void PriorityList::addNode(Occurrence oc, int priority){
 
 
 }//adiciona nó na ista com prioridade 
-void PriorityList::remNode(Occurrence oc, int priority){}//remove o nó --> tem duas condições pra remover o nó;
+void PriorityList::remNode(int index){//remove o nó --> tem duas condições pra remover o nó;
+    if (firstElement == nullptr) {
+        return;
+    }
+    if (index == 0) {
+        Node* oldNode = firstElement;
+        firstElement = firstElement->nextNode;
+        delete oldNode;
+        return;
+    }
+
+    Node* currNode = findNode(index - 1);
+    if (currNode == nullptr || currNode->nextNode == nullptr) {
+        return; // Índice fora dos limites
+    }
+    Node* oldNode = currNode->nextNode;
+    currNode->nextNode = currNode->nextNode->nextNode;
+    delete oldNode;
+}
 
 unsigned int PriorityList::countNodes() const{}//conta os nós e mantém uma quantidade fixa de nós... mesmo que essa não seja a função da lista com prioridade
 unsigned int PriorityList::findVal(int value) const{}//verifica se a ocorrencia ja foi atendida
 void PriorityList::showList() const{} //teoricamente mostraria na tela (?)
 
+PriorityList::Node* PriorityList::findNode(unsigned int index) const {
+    Node* currElement = firstElement;
+    for (unsigned int i = 0; i < index; ++i) {
+        if (currElement == nullptr) {
+            return nullptr; // Índice fora dos limites
+        }
+        currElement = currElement->nextNode;
+    }
+    return currElement;
+}
 
 
 
