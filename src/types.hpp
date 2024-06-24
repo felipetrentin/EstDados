@@ -13,17 +13,18 @@ struct Vehicle{
     
 };
 
-struct Occurence {
-    char description; // será que precisa colocar aqueles colchetes?
+//Estrutura de uma ocorrencia, com sua respectiva descrição, local e prioridade;
+typedef struct Occurrence {
+    char description[50];
     int place; //que são os NodeTypes? Ou vamos colocar os endereços mesmo?
     int priority;
-};
+}Occurrence;
 
 enum priority_type{ //tá certo declarar assim?
     HIGH = 45,
     MEDIUM = 90,
     LOW = 135, 
-    NON_EMERGENCY = 180,
+    NON = 180,
 };
 
 enum NodeType{
