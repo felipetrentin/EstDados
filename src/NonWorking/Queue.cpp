@@ -64,13 +64,14 @@ public:
         return items == 0;
     }
 
-    void display() const {
+    void displayText() const {
         for (int i = 0; i < items; ++i) {
             if (i > 0) {
-                cout << " ";
+                putchar(',');
+                putchar(' ');
             }
-            cout << data[(front + i) % size];
+            printf("%d", data[(front + i) % size]);
         }
-        cout << '\n';
+        putchar('\n');
     }
 };

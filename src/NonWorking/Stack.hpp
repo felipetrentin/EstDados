@@ -2,7 +2,6 @@
 #define STACK_HPP
 
 #include <iostream>
-#include <stdexcept>
 
 class Stack {
 private:
@@ -33,7 +32,7 @@ public:
     bool isFull() const;
 
     // Função para exibir os elementos da pilha
-    void display() const;
+    void displayText() const;
 };
 
 #endif

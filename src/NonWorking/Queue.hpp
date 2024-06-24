@@ -26,7 +26,7 @@ public:
     bool isEmpty() const;
 
     // Método para exibir informações da fila (opcional)
-    void display() const;
+    void displayText() const;
 };
 
 #endif
