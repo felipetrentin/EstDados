@@ -1,4 +1,7 @@
+#include <iostream>
 #include "Queue.hpp"
+
+using namespace std;
 
 class Queue {
 private:
@@ -61,12 +64,13 @@ public:
         return items == 0;
     }
 
-    // Método para exibir informações da fila
     void display() const {
-        std::cout << "Queue: ";
         for (int i = 0; i < items; ++i) {
-            std::cout << data[(front + i) % size] << " ";
+            if (i > 0) {
+                cout << " ";
+            }
+            cout << data[(front + i) % size];
         }
-        std::cout << std::endl;
+        cout << '\n';
     }
 };
