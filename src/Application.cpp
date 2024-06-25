@@ -43,9 +43,8 @@ void Application::drawInfo(){
     
 
     ImGui::SetWindowPos(ImVec2(0, 0));
-    char timeOverlay[32];
-    sprintf(timeOverlay, "time: %7.2fs", gameClock.getElapsedTime().asSeconds());
-    ImGui::Text(timeOverlay);
+    
+    ImGui::Text("time: %7.2fs", gameClock.getElapsedTime().asSeconds());
 
     if(ImGui::CollapsingHeader("Camera")){
         ImGui::Text("x position:");
@@ -56,9 +55,7 @@ void Application::drawInfo(){
         ImGui::Text(std::to_string(view1.getCenter().y).c_str());
     }
     if(ImGui::CollapsingHeader("Performance")){
-        char txt[32];
-        sprintf(txt, "dt: %lldus", dt_.asMicroseconds());
-        ImGui::Text(txt);
+        ImGui::Text("dt: %lldus", dt_.asMicroseconds());
         
         float average = 0.0f;
         for (int n = 0; n < IM_ARRAYSIZE(dtHist_); n++)
@@ -72,15 +69,12 @@ void Application::drawInfo(){
     if(ImGui::CollapsingHeader("graphCars")){
         for(int i=0; i<ncasas; i++){
             Vertice* vertice = map_.getVertice(i);
-            
+
             if(vertice != nullptr){
-                char modeinfo[100];
                 if(vertice->vehicle != nullptr){
-                    sprintf(modeinfo, "nó %d (%s) tem carro %p", i, vertice->name.c_str(), vertice->vehicle);
-                    ImGui::Text(modeinfo);
+                    ImGui::Text("nó %d (%s) tem carro %p", i, vertice->name.c_str(), vertice->vehicle);
                 }else{
-                    sprintf(modeinfo, "nó %d (%s) vazio", i, vertice->name.c_str());
-                    ImGui::TextColored(ImVec4(1.0f, 0.3f, 0.0f, 1.0f), modeinfo);
+                    ImGui::TextColored(ImVec4(1.0f, 0.3f, 0.0f, 1.0f), "nó %d (%s) vazio", i, vertice->name.c_str());
                 }
             }
         }

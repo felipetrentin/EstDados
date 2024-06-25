@@ -86,25 +86,21 @@ void VehichleManager::vehiclesDebugMenu(){
             Vehicle* ve = getVehicle(i);
             char nodeName[32];
             sprintf(nodeName, "vehichle id:%d @ %p", i, ve);
-            if(ve == nullptr){
-                //se o veiculo existe
-                if(ImGui::TreeNode(nodeName)){
+            if(ImGui::TreeNode(nodeName)){
+                if(ve == nullptr){
+                    //se o veiculo não existe
                     ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.2f, 1.0f), "o carro é nulo!");
-                    ImGui::TreePop();
-                }
-            }else{
-                //valores específicos do carro
-                if (ImGui::TreeNode(nodeName)){
+                }else{
+                    //valores específicos do carro
                     ImGui::Checkbox("traveling", &(ve->traveling));
                     ImGui::InputInt("source", &(ve->source));
                     ImGui::InputInt("destination", &(ve->destination));
                     ImGui::InputInt("speed", &(ve->speed));
                     ImGui::InputInt("capacity", &(ve->capacity));
                     ImGui::Text("startTime %.2f", ve->travelStartTime);
-                    ImGui::TreePop();
                 }
+                ImGui::TreePop();
             }
-            
         }
     }
 }
