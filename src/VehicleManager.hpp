@@ -14,21 +14,31 @@
 
 class VehichleManager{
 public:
-    VehichleManager(int numOfUnits, Graph* graph);
+    VehichleManager(Graph* graph, sf::Clock* gameClock);
     ~VehichleManager();
 
     Vehicle* getVehicle(int id);
     void vehiclesDebugMenu();
-    void update(sf::Clock* gameClock);
+    void update();
     void spawnVehichle(int vehicleID, int nodeID);
-    void updateVehicle(int vehicleID, sf::Clock* gameClock);
-    sf::Vector2f getVehiclePos(Vehicle* ve, sf::Clock* deltaClock);
+    sf::Vector2f getVehiclePos(Vehicle* ve);
+    int getNumUnits();
+    bool arrived(Vehicle* ve);
+    bool setMovement(Vehicle* ve, int dest);
 private:
     const sf::Vector2f lerp(sf::Vector2f a, sf::Vector2f b, float t);
     int numOfUnits_;
     AVLTree<Vehicle> automobiles;
     Graph* graph_;
-    /* data */
+
+    sf::Clock* gameClock;
+
+    int spawnerId = 0;
+    int spawnNode = 0;
+
+    int moverSrcId = 0;
+    int moverDestId = 0;
+
 };
 
 #endif

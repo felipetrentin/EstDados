@@ -177,10 +177,22 @@ void AVLTree<T>::deleteTree(Node* node) {
 
 template <typename T>
 T* AVLTree<T>::get(int key){
-    
+    find(root, key);
 }
 
 template <typename T>
 typename AVLTree<T>::Node* AVLTree<T>::find(Node* node, int key){
-    return nullptr;
+    if (node == nullptr)
+        //não achou
+        return node;
+    if (key < node->key)
+        //pega a subarvore esquerda
+        node->left = find(node->left, key);
+    else if (key > node->key)
+        //pega a subarvore direita
+        node->right = find(node->right, key);
+    else {
+        // está no nó certo
+        return node;
+    }
 }

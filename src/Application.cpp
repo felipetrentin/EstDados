@@ -9,7 +9,7 @@ Application::Application() :
     window_(sf::VideoMode(1920, 1080), "Meanwhile in Baltimore: [compiled: " __DATE__ " " __TIME__ "]", sf::Style::Default, settings),
     map_(ncasas),
     view1(sf::FloatRect(0.f, 0.f, window_.getSize().x, window_.getSize().y)),
-    vManager_(2, &map_)
+    vManager_(&map_, &gameClock)
 {
     window_.setVerticalSyncEnabled(true);
     font_.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSans.ttf");
@@ -68,7 +68,25 @@ void Application::drawInfo(){
         sprintf(overlay, "avg %7.2fus", average);
         ImGui::PlotLines("", dtHist_, IM_ARRAYSIZE(dtHist_), 1, overlay, 3000.0f, 50000.0f, ImVec2(0,120));
     }
-    //vManager_.vehiclesDebugMenu();
+
+    if(ImGui::CollapsingHeader("graphCars")){
+        for(int i=0; i<ncasas; i++){
+            Vertice* vertice = map_.getVertice(i);
+            
+            if(vertice != nullptr){
+                char modeinfo[100];
+                if(vertice->vehicle != nullptr){
+                    sprintf(modeinfo, "nó %d (%s) tem carro %p", i, vertice->name.c_str(), vertice->vehicle);
+                    ImGui::Text(modeinfo);
+                }else{
+                    sprintf(modeinfo, "nó %d (%s) vazio", i, vertice->name.c_str());
+                    ImGui::TextColored(ImVec4(1.0f, 0.3f, 0.0f, 1.0f), modeinfo);
+                }
+            }
+        }
+    }
+
+    vManager_.vehiclesDebugMenu();
     ImGui::End();
 }
 
@@ -106,18 +124,17 @@ void Application::draw(){
             window_.draw(label);
         }
     }
-
-    /*
+    
     sf::CircleShape car(10.f);
     car.setFillColor(sf::Color::Transparent);
     car.setOutlineColor(sf::Color(255,100,255,255));
     car.setOutlineThickness(2.0f);
 
-    for(int k=0; k<10; k++){
-        car.setPosition(vManager_.getVehiclePos(vManager_.getVehicle(k), &gameClock));
+    for(int k=0; k<vManager_.getNumUnits(); k++){
+        car.setPosition(vManager_.getVehiclePos(vManager_.getVehicle(k)));
         window_.draw(car);
     }
-    */
+    
 
     ImGui::ShowDemoWindow();
 
@@ -209,8 +226,7 @@ void Application::run() {
         if(milisElapsedTick_ >= 100){
             milisElapsedTick_ = 0;
             //game tick update
-
-
+            vManager_.update();
         }
 
         draw();
