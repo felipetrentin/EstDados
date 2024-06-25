@@ -1,7 +1,5 @@
 #include "StackVehicle.hpp"
 
-
-
 // Construtor
 StackVehicle::StackVehicle(int size) : size(size), top(-1) {
     vehicle = new Vehicle[size];

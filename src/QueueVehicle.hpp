@@ -7,10 +7,10 @@
 class QueueVehicle {
 private:
     int size;
-    int* vehicle; //aqui é pra ser do tipo vehicle que é uma struct
+    Vehicle* vehicle;
     int front;
     int rear;
-    int items; //quantidade de elementos da fila
+    int items;
 
 public:
     // Construtor
@@ -20,13 +20,10 @@ public:
     ~QueueVehicle();
 
     // Métodos da fila
-    bool enqueue(int vehicle); //ta certo passar
+    bool enqueue(Vehicle item); //ta certo passar
     bool dequeue();
     bool isFull() const;
     bool isEmpty() const;
-
-    // exibe informações da fila
-    void displayText() const;
 };
 
 #endif
