@@ -43,9 +43,9 @@ void EMSManager::showListOccourances(){
 }
 
 void EMSManager::drawOccourence(){
-    Occurrence* oc = &(randomEvents.chooseOne(abs(rand()%50))->occurrence);
+    Occurrence* oc = &(randomEvents.chooseOne(5)->occurrence);
     if(oc != nullptr){
-        currentEvents.addNode(*oc);
+        currentEvents.addNode(oc);
     }
     
 }

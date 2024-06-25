@@ -21,16 +21,11 @@ CircularList::~CircularList(){
     head = nullptr;
 } // destrutor
 
-// métodos
-CircularList::Node *CircularList::newNode(Occurrence oc){
-    Node *newElement = (Node *)malloc(sizeof(Node *)); // alocação dinâmica dos nós
-    newElement->occurrence = oc;
-    newElement->next = nullptr;
-    return newElement;
-} // cria um nó com a ocorrência e um ponteiro nulo que vai deixar de ser nulo na adição
-
-void CircularList::addNode(Occurrence oc){
-    Node *currElement = newNode(oc); // too many arguments
+void CircularList::addNode(Occurrence* oc){
+    Node *currElement = new Node();
+    currElement->occurrence.description = oc->description;
+    currElement->occurrence.place = oc->place;
+    currElement->occurrence.priority = oc->priority;
     if (head == nullptr)
     {
         head = currElement;
@@ -96,7 +91,6 @@ void CircularList::removeNode(Occurrence oc){
 
 CircularList::Node *CircularList::chooseOne(int spin){
     Node *curr = head;
-    /*
     for (int i = 0; i < spin; i++)
     { // anda um
         if(curr->next != nullptr){
@@ -105,13 +99,12 @@ CircularList::Node *CircularList::chooseOne(int spin){
     }
     //removeNode(curr->occurrence);
     return curr;
-    */
    return head;
 } // função que vai roletar e remover o nó roletado
 
 bool CircularList::loadCSV(std::string path){
     std::string segment;
-    std::ifstream myfile ("example.txt");
+    std::ifstream myfile (path);
     if (myfile.is_open())
     {
         int segId = 0;
@@ -139,30 +132,31 @@ bool CircularList::loadCSV(std::string path){
                 segId++;
                 break;
             case 2:
-                occ->place |= (std::stoi(segment) & 1); //coloca o bit menos sig. no priority;
+                occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
                 occ->place = occ->place << 1; // desloca pra esquerda
                 segId++;
                 break;
             case 3:
-                occ->place |= (std::stoi(segment) & 1); //coloca o bit menos sig. no priority;
+                occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
                 occ->place = occ->place << 1; // desloca pra esquerda
                 segId++;
                 break;
             case 4:
-                occ->place |= (std::stoi(segment) & 1); //coloca o bit menos sig. no priority;
+                occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
                 occ->place = occ->place << 1; // desloca pra esquerda
                 segId++;
                 break;
             case 5:
-                occ->place |= (std::stoi(segment) & 1); //coloca o bit menos sig. no priority;
+                occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
                 occ->place = occ->place << 1; // desloca pra esquerda
                 segId++;
                 break;
             case 6:
-                occ->place |= (std::stoi(segment) & 1); //coloca o bit menos sig. no priority;
+                occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
                 occ->place = occ->place << 1; // desloca pra esquerda
-                addNode(*occ);
+                addNode(occ);
                 delete occ;
+                occ = nullptr;
                 segId = 0;
                 break;
             }

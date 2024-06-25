@@ -18,7 +18,7 @@ public:
 
     //métodos
     Node* newNode(Occurrence oc); //cria um novo nó a partir de uma ocorrencia
-    void addNode(Occurrence oc);//adiciona nó na ista com prioridade 
+    void addNode(Occurrence *oc);//adiciona nó na ista com prioridade 
     void remNode(int index);//remove o nó --> tem duas condições pra remover o nó;
     int getPriority(Occurrence* oc); //pega a prioridade da struct occurrence e retorna o valor dela;
     unsigned int countNodes();//conta os nós e mantém uma quantidade fixa de nós... mesmo que essa não seja a função da lista com prioridade

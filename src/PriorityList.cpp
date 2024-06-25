@@ -18,12 +18,12 @@ int PriorityList::getPriority(Occurrence* oc){
     return oc->priority;
 } //pega a prioridade da struct occurrence e retorna o valor dela;
 
-void PriorityList::addNode(Occurrence oc){
+void PriorityList::addNode(Occurrence *oc){
     Node* newElem = new Node();
-    newElem->occurrence.description = oc.description;
-    newElem->occurrence.priority = oc.priority;
-    newElem->occurrence.place = oc.place;
-    newElem->priority = oc.priority;
+    newElem->occurrence.description = oc->description;
+    newElem->occurrence.priority = oc->priority;
+    newElem->occurrence.place = oc->place;
+    newElem->priority = oc->priority;
     if (firstElement == nullptr || firstElement->priority < newElem->occurrence.priority){
         newElem->nextNode = firstElement;
         firstElement = newElem;
