@@ -19,7 +19,7 @@ CircularList::~CircularList(){
 } //destrutor
 
 //métodos
-Node* CircularList::newNode(Occurrence oc){
+CircularList::Node* CircularList::newNode(Occurrence oc){
   Node* newElement = (Node*) malloc (sizeof (Node*)); //alocação dinâmica dos nós
   newElement->occurrence = oc; 
   newElement->next = nullptr;
@@ -79,7 +79,7 @@ void CircularList::removeNode(Occurrence oc){
   }while(currElement!=head);
 } //remover um nó 
 
-Node* CircularList::chooseOne(int spin){
+CircularList::Node* CircularList::chooseOne(int spin){
   Node* curr = head;
   Node* temp = nullptr;
   for (int i=0; i<spin; i++){ //anda um
