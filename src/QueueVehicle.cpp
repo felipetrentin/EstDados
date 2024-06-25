@@ -7,7 +7,7 @@ using namespace std;
 class QueueVehicle {
 private:
     int size;
-    int* vehicle;
+    Vehicle* vehicle;
     int front;
     int rear;
     int items;
@@ -25,7 +25,7 @@ public:
     }
 
     // Enfileirar --> Adiciona o carro
-    bool enqueue(int item) {
+    bool enqueue(Vehicle item) {
         if (isFull()) {
             return false;
         }
@@ -42,7 +42,7 @@ public:
             return false;
         }
         //não está vazia
-        int temp = vehicle[front++];
+        Vehicle temp = vehicle[front++];
         items--;
         return true;
     }

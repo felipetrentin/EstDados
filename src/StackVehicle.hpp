@@ -2,12 +2,13 @@
 #define STACKVEHICLE_HPP
 
 #include <iostream>
+#include "types.hpp"
 
 class StackVehicle {
 private:
     int top;
     int size;
-    int* stackArray;
+    Vehicle* vehicle;
 
 public:
     // Construtor
@@ -15,17 +16,15 @@ public:
     // Destrutor
     ~StackVehicle();
     // Função push
-    bool addOnTop(int value);
+    bool addOnTop(Vehicle value);
     // Função pop
     bool removeFromTop();
-    // Função seek - mostra o topo
-    int top() const;
     // Função para verificar se a pilha está vazia
-    bool isEmpty() const;
+    bool isEmpty();
     // Função para verificar se a pilha está cheia
-    bool isFull() const;
-    // Função para exibir os elementos da pilha
-    void displayText() const;
+    bool isFull();
+
+    bool getTop(Vehicle& topElement);
 };
 
 #endif
