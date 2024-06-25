@@ -5,17 +5,17 @@ class Stack {
 private:
     int top;
     int size;
-    int* stackArray;
+    int* vehicle;
 
 public:
     // Construtor
     Stack(int size) : size(size), top(-1) {
-        stackArray = new Vehicle[size];
+        vehicle = new Vehicle[size];
     }
 
     // Destrutor
     ~Stack() {
-        delete[] stackArray;
+        delete[] vehicle;
     }
 
     //Função push --> Adiciona no topo da pilha
@@ -24,7 +24,7 @@ public:
             //Caso esteja cheia
             return false;
         }
-        stackArray[++top] = value;
+        vehicle[++top] = value;
         return true;
     }
 
@@ -39,18 +39,20 @@ public:
     }
 
     // mostra o topo
-    bool top() const {
+    bool top(int& topElement) const {
         if (isEmpty()) {
-            return -1;
+            return false;
         }
-        return stackArray[top];
+        topElement = vehicle[top];
+        return true;
     }
-    // verificar se está vazia
+
+    // verifica se está vazia
     bool isEmpty() const {
         return top < 0;
     }
 
-    // verificar se está cheia
+    // verifica se está cheia
     bool isFull() const {
         return top >= size - 1;
     }
@@ -62,7 +64,7 @@ public:
         }
         printf("Stack elements: ");
         for (int i = 0; i <= top; i++) {
-            printf(stackArray[i] + " ");
+            printf(vehicle[i] + " ");
         }
     }
 };
