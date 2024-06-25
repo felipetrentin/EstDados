@@ -43,17 +43,14 @@ void Application::drawInfo(){
     
 
     ImGui::SetWindowPos(ImVec2(0, 0));
-    
-    ImGui::Text("time: %7.2fs", gameClock.getElapsedTime().asSeconds());
 
-    if(ImGui::CollapsingHeader("Camera")){
-        ImGui::Text("x position:");
-        ImGui::SameLine();
-        ImGui::Text(std::to_string(view1.getCenter().x).c_str());
-        ImGui::Text("y position:");
-        ImGui::SameLine();
-        ImGui::Text(std::to_string(view1.getCenter().y).c_str());
+    ImGui::Text("time: %7.2fs", gameClock.getElapsedTime().asSeconds());
+    //info da câmera
+    if(ImGui::CollapsingHeader("Câmera")){
+        ImGui::Text("x position: %d", view1.getCenter().x);
+        ImGui::Text("y position: %d", view1.getCenter().y);
     }
+    //gráfico de performance com média
     if(ImGui::CollapsingHeader("Performance")){
         ImGui::Text("dt: %lldus", dt_.asMicroseconds());
         
@@ -66,6 +63,7 @@ void Application::drawInfo(){
         ImGui::PlotLines("", dtHist_, IM_ARRAYSIZE(dtHist_), 1, overlay, 3000.0f, 50000.0f, ImVec2(0,120));
     }
 
+    //mostra as posições dos carros no grafo
     if(ImGui::CollapsingHeader("graphCars")){
         for(int i=0; i<ncasas; i++){
             Vertice* vertice = map_.getVertice(i);
