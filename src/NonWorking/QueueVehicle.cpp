@@ -24,7 +24,7 @@ public:
         delete[] vehicle;
     }
 
-    // Enfileirar 
+    // Enfileirar --> Adiciona o carro
     bool enqueue(int item) {
         if (isFull()) {
             return false;
@@ -35,7 +35,7 @@ public:
         return true;
     }
 
-    // Desenfileirar (remove o carro)
+    // Desenfileirar --> Remove o carro
     bool dequeue() {
         //se esteja vazia
         if (isEmpty()) {

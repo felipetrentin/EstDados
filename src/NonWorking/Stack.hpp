@@ -15,22 +15,16 @@ public:
 
     // Destrutor
     ~Stack();
-
     // Função push
-    void push(int value);
-
+    bool addOnTop(int value);
     // Função pop
-    int pop();
-
+    bool removeFromTop();
     // Função seek - mostra o topo
-    int seek() const;
-
+    int top() const;
     // Função para verificar se a pilha está vazia
     bool isEmpty() const;
-
     // Função para verificar se a pilha está cheia
     bool isFull() const;
-
     // Função para exibir os elementos da pilha
     void displayText() const;
 };

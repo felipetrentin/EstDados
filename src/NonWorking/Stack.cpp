@@ -1,4 +1,5 @@
 #include "Stack.hpp"
+#include "types.hpp"
 using namespace std;
 
 class Stack {
@@ -10,7 +11,7 @@ private:
 public:
     // Construtor
     Stack(int size) : size(size), top(-1) {
-        stackArray = new int[size];
+        stackArray = new Vehicle[size];
     }
 
     // Destrutor
@@ -18,27 +19,29 @@ public:
         delete[] stackArray;
     }
 
-   void push(int value) {
-        if (top >= size - 1) {
-            std::cout << "Stack overflow" << std::endl;
-            return;
+    //Função push --> Adiciona no topo da pilha
+    bool addOnTop(int value) {
+        if (isFull()) {
+            //Caso esteja cheia
+            return false;
         }
         stackArray[++top] = value;
+        return true;
     }
 
-    // Função pop
-    int pop() {
-        if (top < 0) {
-            std::cout << "Stack underflow" << std::endl;
-            return -1;
+    // Função pop --> Remove do topo da pilha
+    bool removeFromTop() {
+        if (isEmpty()) {
+            //caso esteja vazia 
+            return false;
         }
-        return stackArray[top--];
+        top--;
+        return true;
     }
 
     // mostra o topo
-    int top() const {
-        if (top < 0) {
-            std::cout << "Stack is empty" << std::endl;
+    bool top() const {
+        if (isEmpty()) {
             return -1;
         }
         return stackArray[top];
