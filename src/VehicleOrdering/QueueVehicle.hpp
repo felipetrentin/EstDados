@@ -1,6 +1,6 @@
 // Estrutura de dados fila
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef QUEUEVEHICLE_H
+#define QUEUEVEHICLE_H
 
 #include <string>
 
