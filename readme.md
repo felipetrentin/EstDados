@@ -1,8 +1,8 @@
 # Trabalho de estrutura de dados
 
-<h1> por Felipe Trentin, Gabriela Rocha e Marina J. Ramalho <h1>
+<h3> por Felipe Trentin, Gabriela Rocha e Marina J. Ramalho </h3>
 
-~ Sumário ~
+ _Sumário_ 
 1. [Objetivos](#objetivos)
 2. [Proposta](#proposta)
 3. [Estruturas](#estruturas)
@@ -36,7 +36,7 @@ Estruturas implementadas:
 - [Lista com prioridade](src/PriorityList.cpp)
 - [Fila](scr/NonWorking/Stack.cpp)
 - [Pilha](scr/NonWorking/Queue.cpp)
-- [Árvore de Decisão](src/)
+- [Árvore de Decisão](src/.cpp)
 - [Matrizes de Adjacência e Grafos](src/graph.cpp)
 
 ## Estruturas
@@ -47,6 +47,7 @@ Espaço $O()$
 
 Tempo $O()$
 
+A Lista Ligada traz vantagens em sua implementação, pois é a primeira estrutura de dados que possui alocação dinâmica de memória. O que possibilidade flexibilidade Por sua fácil remoção 
 ### Lista Circular
 Complexidade:
 
