@@ -26,7 +26,7 @@ Node* CircularList::newNode(Occurrence oc){
   return newElement;
 } //cria um nó com a ocorrência e um ponteiro nulo que vai deixar de ser nulo na adição
 
-void CircularList::addNode(Occurrence oc, Node* head){
+void CircularList::addNode(Occurrence oc){
   Node *currElement = newNode(oc); //too many arguments 
   if (head==nullptr){
     head = currElement;
@@ -42,12 +42,14 @@ void CircularList::addNode(Occurrence oc, Node* head){
   }
 } //adiciona os nós no fim da lista circular
 
-void CircularList::removeNode(Occurrence oc, Node* head){
+void CircularList::removeNode(Occurrence oc){
   Node* previous = nullptr;
   Node* currElement = head;
 
   do{
-    if(currElement->occurrence == oc) { //ele não sabe comparar struct --> precisa comparar outros atributos
+    if(
+      currElement->occurrence.place == oc.place && 
+      currElement->occurrence.priority == oc.priority) {
       if (previous == nullptr){
         previous->next = currElement->next;
         if (currElement == head){
@@ -77,7 +79,7 @@ void CircularList::removeNode(Occurrence oc, Node* head){
   }while(currElement!=head);
 } //remover um nó 
 
-Node* CircularList::chooseOne(Node *head, int spin){
+Node* CircularList::chooseOne(int spin){
   
 } //função que vai roletar e remover o nó roletado
 

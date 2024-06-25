@@ -31,7 +31,6 @@ private:
     Node* firstElement;
     int capacity;
     //método privado auxiliar
-    Node* findNode(unsigned int index) const;
 };
 
 #endif 

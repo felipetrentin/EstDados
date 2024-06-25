@@ -58,11 +58,7 @@ void PriorityList::remNode(int index){//remove o nó --> tem duas condições pr
     delete oldNode;
 }
 
-unsigned int PriorityList::countNodes() const{}//conta os nós e mantém uma quantidade fixa de nós... mesmo que essa não seja a função da lista com prioridade
-unsigned int PriorityList::findVal(int value) const{}//verifica se a ocorrencia ja foi atendida
-void PriorityList::showList() const{} //teoricamente mostraria na tela (?)
-
-PriorityList::Node* PriorityList::findNode(unsigned int index) const {
+PriorityList::Node* PriorityList::findNode(unsigned int index){
     Node* currElement = firstElement;
     for (unsigned int i = 0; i < index; ++i) {
         if (currElement == nullptr) {
@@ -74,6 +70,9 @@ PriorityList::Node* PriorityList::findNode(unsigned int index) const {
 }
 
 
+unsigned int PriorityList::countNodes() const{}//conta os nós e mantém uma quantidade fixa de nós... mesmo que essa não seja a função da lista com prioridade
+unsigned int PriorityList::findVal(int value) const{}//verifica se a ocorrencia ja foi atendida
+void PriorityList::showList() const{} //teoricamente mostraria na tela (?)
 
 
 

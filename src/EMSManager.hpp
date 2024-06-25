@@ -8,7 +8,7 @@
 class EMSManager{
 public:
     EMSManager(int lives);
-    ~EMSManager();
+    //~EMSManager();
     void update();
 
 private:
