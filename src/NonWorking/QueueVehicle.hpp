@@ -20,8 +20,8 @@ public:
     ~QueueVehicle();
 
     // Métodos da fila
-    void enqueue(int vehicle); //ta certo passar
-    int dequeue();
+    bool enqueue(int vehicle); //ta certo passar
+    bool dequeue();
     bool isFull() const;
     bool isEmpty() const;
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include "types.hpp"
 #include "QueueVehicle.hpp"
 
 using namespace std;
@@ -14,7 +15,7 @@ private:
 public:
     // Construtor
     QueueVehicle(int size) : size(size), front(0), rear(-1), items(0) {
-        vehicle = new int[size];
+        vehicle = new Vehicle[size];
     }
 
 
@@ -23,36 +24,27 @@ public:
         delete[] vehicle;
     }
 
-    // Enfileirar (add)
-    void enqueue(int item) {
+    // Enfileirar 
+    bool enqueue(int item) {
         if (isFull()) {
-            throw std::overflow_error("Queue is full");
-        }
-
-        if (rear == size - 1) {
-            rear = -1;
+            return false;
         }
 
         vehicle[++rear] = item;
         items++;
+        return true;
     }
 
     // Desenfileirar (remove o carro)
-    int dequeue() {
-        //caso a fila esteja vazia
+    bool dequeue() {
+        //se esteja vazia
         if (isEmpty()) {
-            throw std::underflow_error("Queue is empty");
+            return false;
         }
-
-        //caso a fila não esteja vazia
+        //não está vazia
         int temp = vehicle[front++];
-
-        if (front == size) {
-            front = 0;
-        }
-
         items--;
-        return temp;
+        return true;
     }
 
     // Método para verificar se a fila está cheia
