@@ -8,6 +8,7 @@ atendido em maior ou menor tempo, em que a prioridade é dada de forma decrescen
 */
 
 #include "EMSManager.hpp"
+#include <random>
 
 EMSManager::EMSManager(int lives) :
     lifes(lives)
@@ -27,4 +28,9 @@ void EMSManager::update(){
             lifes--;
         }
     }
+}
+
+void EMSManager::addOccourence(){
+    random()%50;
+    
 }

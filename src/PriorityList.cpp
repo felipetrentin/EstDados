@@ -34,10 +34,8 @@ void PriorityList::addNode(Occurrence oc, int priority){
     } else{
         Node* aux = firstElement;
     }
-
-
-
 }//adiciona nó na ista com prioridade 
+
 void PriorityList::remNode(int index){//remove o nó --> tem duas condições pra remover o nó;
     if (firstElement == nullptr) {
         return;
