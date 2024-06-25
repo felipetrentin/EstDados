@@ -80,7 +80,13 @@ void CircularList::removeNode(Occurrence oc){
 } //remover um nó 
 
 Node* CircularList::chooseOne(int spin){
-  
+  Node* curr = head;
+  Node* temp = nullptr;
+  for (int i=0; i<spin; i++){ //anda um
+    curr = curr->next;
+  }
+  return curr;
+  removeNode(curr->occurrence);
 } //função que vai roletar e remover o nó roletado
 
 
