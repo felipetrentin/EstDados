@@ -5,13 +5,15 @@
 
 Application::Application() : 
     //lista de inicialização do construtor
+    settings(0, 0, 8, 1, 1, sf::ContextSettings::Default,false),
     window_(sf::VideoMode(1920, 1080), "Meanwhile in Baltimore: [compiled: " __DATE__ " " __TIME__ "]", sf::Style::Default, settings),
     map_(ncasas),
-    view1(sf::FloatRect(0.f, 0.f, window_.getSize().x, window_.getSize().y))
+    view1(sf::FloatRect(0.f, 0.f, window_.getSize().x, window_.getSize().y)),
+    vManager_(&map_, &gameClock)
 {
-    settings.antialiasingLevel = 8;
     window_.setVerticalSyncEnabled(true);
     font_.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSans.ttf");
+    
 }
 
 void Application::drawAssistant(){
@@ -28,14 +30,61 @@ void Application::drawRoad(sf::Vector2f from, sf::Vector2f to){
     window_.draw(line, 2, sf::Lines);
 }
 
-void Application::draw(){
+void Application::drawInfo(){
     ImGui::Begin("Informações", nullptr, ImGuiWindowFlags_NoMove);
+
+    for(int i = 0; i<IM_ARRAYSIZE(dtHist_); i++){
+        if(i == IM_ARRAYSIZE(dtHist_) - 1){
+            dtHist_[i] = dt_.asMicroseconds();
+        }else{
+            dtHist_[i] = dtHist_[i + 1];
+        }
+    }
+    
+
     ImGui::SetWindowPos(ImVec2(0, 0));
-    ImGui::Text("x position:");
-    ImGui::Text(std::to_string(view1.getCenter().x).c_str());
-    ImGui::Text("y position:");
-    ImGui::Text(std::to_string(view1.getCenter().y).c_str());
+
+    ImGui::Text("time: %7.2fs", gameClock.getElapsedTime().asSeconds());
+    //info da câmera
+    if(ImGui::CollapsingHeader("Câmera")){
+        ImGui::Text("x position: %d", view1.getCenter().x);
+        ImGui::Text("y position: %d", view1.getCenter().y);
+    }
+    //gráfico de performance com média
+    if(ImGui::CollapsingHeader("Performance")){
+        ImGui::Text("dt: %lldus", dt_.asMicroseconds());
+        
+        float average = 0.0f;
+        for (int n = 0; n < IM_ARRAYSIZE(dtHist_); n++)
+            average += dtHist_[n];
+        average /= (float)IM_ARRAYSIZE(dtHist_);
+        char overlay[32];
+        sprintf(overlay, "avg %7.2fus", average);
+        ImGui::PlotLines("", dtHist_, IM_ARRAYSIZE(dtHist_), 1, overlay, 3000.0f, 50000.0f, ImVec2(0,120));
+    }
+
+    //mostra as posições dos carros no grafo
+    if(ImGui::CollapsingHeader("graphCars")){
+        for(int i=0; i<ncasas; i++){
+            Vertice* vertice = map_.getVertice(i);
+
+            if(vertice != nullptr){
+                if(vertice->vehicle != nullptr){
+                    ImGui::Text("nó %d (%s) tem carro %p", i, vertice->name.c_str(), vertice->vehicle);
+                }else{
+                    ImGui::TextColored(ImVec4(1.0f, 0.3f, 0.0f, 1.0f), "nó %d (%s) vazio", i, vertice->name.c_str());
+                }
+            }
+        }
+    }
+
+    vManager_.vehiclesDebugMenu();
     ImGui::End();
+}
+
+void Application::draw(){
+    
+    drawInfo();
 
     drawAssistant();
 
@@ -67,6 +116,19 @@ void Application::draw(){
             window_.draw(label);
         }
     }
+    
+    sf::CircleShape car(10.f);
+    car.setFillColor(sf::Color::Transparent);
+    car.setOutlineColor(sf::Color(255,100,255,255));
+    car.setOutlineThickness(2.0f);
+
+    for(int k=0; k<vManager_.getNumUnits(); k++){
+        car.setPosition(vManager_.getVehiclePos(vManager_.getVehicle(k)));
+        window_.draw(car);
+    }
+    
+
+    ImGui::ShowDemoWindow();
 
     ImGui::SFML::Render(window_);
     window_.display();
@@ -123,6 +185,8 @@ void Application::run() {
         printf("\nERROR LOADING MAP!\n");
     }
 
+    gameClock.restart();
+
     while(window_.isOpen()) {
         sf::Event event;
         
@@ -133,7 +197,7 @@ void Application::run() {
             }
         }
 
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)){
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && window_.hasFocus()){
             if(!scrolling){
                 scrolling = true;
                 scrollPos_ = sf::Mouse::getPosition();
@@ -148,8 +212,14 @@ void Application::run() {
         }else{
             scrolling = false;
         }
-
-        ImGui::SFML::Update(window_, deltaClock.restart());
+        dt_ = deltaClock.restart();
+        ImGui::SFML::Update(window_, dt_);
+        milisElapsedTick_ += dt_.asMilliseconds();
+        if(milisElapsedTick_ >= 100){
+            milisElapsedTick_ = 0;
+            //game tick update
+            vManager_.update();
+        }
 
         draw();
 

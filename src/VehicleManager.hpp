@@ -1,20 +1,44 @@
 #ifndef VEHICLE_MNGR_HPP
 #define VEHICLE_MNGR_HPP
 
-#include "types.hpp"
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/Window/Event.hpp>
+#include <imgui-SFML.h>
+#include <imgui.h>
 
-#define NUMBER_OF_UNITS 2
+#include "types.hpp"
+#include "graph.hpp"
+#include "AvlTree.hpp"
 
 class VehichleManager{
 public:
-    VehichleManager();
+    VehichleManager(Graph* graph, sf::Clock* gameClock);
     ~VehichleManager();
 
-    void getvehicle();
+    Vehicle* getVehicle(int id);
+    void vehiclesDebugMenu();
+    void update();
+    void spawnVehichle(int vehicleID, int nodeID);
+    sf::Vector2f getVehiclePos(Vehicle* ve);
+    int getNumUnits();
+    bool arrived(Vehicle* ve);
+    bool setMovement(Vehicle* ve, int dest);
 private:
-    int numOfUnits;
-    Vehicle automobiles[NUMBER_OF_UNITS];
-    /* data */
+    const sf::Vector2f lerp(sf::Vector2f a, sf::Vector2f b, float t);
+    int numOfUnits_;
+    AVLTree<Vehicle> automobiles;
+    Graph* graph_;
+
+    sf::Clock* gameClock;
+
+    int spawnerId = 0;
+    int spawnNode = 0;
+
+    int moverSrcId = 0;
+    int moverDestId = 0;
+
 };
 
 #endif
