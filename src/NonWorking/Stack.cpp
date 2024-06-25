@@ -1,6 +1,5 @@
 #include "Stack.hpp"
 #include "types.hpp"
-using namespace std;
 
 class Stack {
 private:
@@ -57,15 +56,13 @@ public:
     }
 
     // exibir os elementos da pilha para debug
-    void displayText() const {
+    bool displayText() const {
         if (isEmpty()) {
-            std::cout << "Stack is empty." << std::endl;
-            return;
+            return false;
         }
-        std::cout << "Stack elements: ";
+        printf("Stack elements: ");
         for (int i = 0; i <= top; i++) {
-            std::cout << stackArray[i] << " ";
+            printf(stackArray[i] + " ");
         }
-        std::cout << std::endl;
     }
 };
