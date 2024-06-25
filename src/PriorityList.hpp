@@ -18,16 +18,17 @@ public:
 
     //métodos
     Node* newNode(Occurrence oc); //cria um novo nó a partir de uma ocorrencia
-    void addNode(Occurrence oc, int capacity);//adiciona nó na ista com prioridade 
+    void addNode(Occurrence oc);//adiciona nó na ista com prioridade 
     void remNode(int index);//remove o nó --> tem duas condições pra remover o nó;
     int getPriority(Occurrence* oc); //pega a prioridade da struct occurrence e retorna o valor dela;
-    unsigned int countNodes() const;//conta os nós e mantém uma quantidade fixa de nós... mesmo que essa não seja a função da lista com prioridade
+    unsigned int countNodes();//conta os nós e mantém uma quantidade fixa de nós... mesmo que essa não seja a função da lista com prioridade
     unsigned int findVal(int value) const;//verifica se a ocorrencia ja foi atendida
     void showList() const; //teoricamente mostraria na tela (?)
     int* isFull(int capacity); //vê se a lista tá cheia, porque a tela não é infinita e precisamos manejar a quatidade simultanea;
     Node* findNode(unsigned int index);
 
 private:
+    unsigned int countNodes(Node* node);
     Node* firstElement;
     int capacity;
     //método privado auxiliar

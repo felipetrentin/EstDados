@@ -35,26 +35,28 @@ typename AVLTree<T>::Node* AVLTree<T>::insert(Node* node, const T& val, int key)
         node->left = insert(node->left, val, key);
     else if (key > node->key)
         node->right = insert(node->right, val, key);
-    else
-        return node;
+    // else return node;
 
     
     node->height = 1 + std::max(height(node->left), height(node->right));
     int balance = getBalance(node);
+    if(balance > 1){
+        if(key < node->left->key){
+            return rightRotate(node);
+        }else{
+            node->left = leftRotate(node->left);
+            return rightRotate(node);
+        }
 
-    if (balance > 1 && key < node->left->key)
-        return rightRotate(node);
-    if (balance < -1 && key > node->right->key)
-        return leftRotate(node);
-    if (balance > 1 && key > node->left->key) {
-        node->left = leftRotate(node->left);
-        return rightRotate(node);
+    }else if(balance < -1){
+        if(key > node->right->key){
+            return leftRotate(node);
+        }else{
+            node->right = rightRotate(node->right);
+            return leftRotate(node);
+        }
+        
     }
-    if (balance < -1 && key < node->right->key) {
-        node->right = rightRotate(node->right);
-        return leftRotate(node);
-    }
-
     return node;
 }
 
@@ -139,31 +141,23 @@ int AVLTree<T>::getBalance(Node* node) {
 }
 
 template <typename T>
-typename AVLTree<T>::Node* AVLTree<T>::rightRotate(Node* y) {
-    Node* x = y->left;
-    Node* T2 = x->right;
-
-    x->right = y;
-    y->left = T2;
-
-    y->height = std::max(height(y->left), height(y->right)) + 1;
-    x->height = std::max(height(x->left), height(x->right)) + 1;
-
-    return x;
+typename AVLTree<T>::Node* AVLTree<T>::rightRotate(Node* head) {
+    Node* newhead = head->left;
+    head->left = newhead->right;
+    newhead->right = head;
+    head->height =    1+std::max(height(head->left), height(head->right));
+    newhead->height = 1+std::max(height(newhead->left), height(newhead->right));
+    return newhead;
 }
 
 template <typename T>
-typename AVLTree<T>::Node* AVLTree<T>::leftRotate(Node* x) {
-    Node* y = x->right;
-    Node* T2 = y->left;
-
-    y->left = x;
-    x->right = T2;
-
-    x->height = std::max(height(x->left), height(x->right)) + 1;
-    y->height = std::max(height(y->left), height(y->right)) + 1;
-
-    return y;
+typename AVLTree<T>::Node* AVLTree<T>::leftRotate(Node* head) {
+    Node* newhead = head->right;
+    head->right = newhead->left;
+    newhead->left = head;
+    head->height =    1+std::max(height(head->left), height(head->right));
+    newhead->height = 1+std::max(height(newhead->left), height(newhead->right));
+    return newhead;
 }
 
 template <typename T>
@@ -184,13 +178,13 @@ template <typename T>
 typename AVLTree<T>::Node* AVLTree<T>::find(Node* node, int key){
     if (node == nullptr)
         //não achou
-        return node;
-    if (key < node->key)
+        return nullptr;
+    if (node->key > key)
         //pega a subarvore esquerda
-        node->left = find(node->left, key);
-    else if (key > node->key)
+        return find(node->left, key);
+    else if (node->key < key)
         //pega a subarvore direita
-        node->right = find(node->right, key);
+        return find(node->right, key);
     else {
         // está no nó certo
         return node;

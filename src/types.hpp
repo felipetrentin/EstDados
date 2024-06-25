@@ -17,8 +17,11 @@ struct Vehicle{
 
 //Estrutura de uma ocorrencia, com sua respectiva descrição, local e prioridade;
 typedef struct Occurrence {
-    char description[50];
-    int place; //que são os NodeTypes? Ou vamos colocar os endereços mesmo?
+    std::string description;
+    int place;
+    //place será uma bitmask
+    //os bits significam:
+    //HOUSE,APARTMENT,OFFICE,ROUNDABOUT,CROSSING
     int priority;
 }Occurrence;
 

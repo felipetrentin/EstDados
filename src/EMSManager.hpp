@@ -3,6 +3,8 @@
 
 #include "PriorityList.hpp"
 #include "CircularList.hpp"
+#include <imgui-SFML.h>
+#include <imgui.h>
 //função que vai ser rodada a cada segundo para reduzir as prioridades
 
 class EMSManager{
@@ -10,11 +12,13 @@ public:
     EMSManager(int lives);
     //~EMSManager();
     void update();
-    void addOccourence();
-
+    void drawOccourence();
+    void showListOccourances();
+    int getLifes();
 private:
     /* data */
     PriorityList currentEvents;
+    CircularList randomEvents;
     int lifes;
 };
 

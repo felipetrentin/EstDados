@@ -8,21 +8,20 @@ atendido em maior ou menor tempo, em que a prioridade é dada de forma decrescen
 */
 
 #include "EMSManager.hpp"
-#include <random>
 
 EMSManager::EMSManager(int lives) :
     lifes(lives)
 {
-
+    randomEvents.loadCSV("datasetReduzido.csv");
 }
 
 //updates acontecem cad
 void EMSManager::update(){
     //abaixar um em tudo
-    for(int i = 0; i<40; i++){
+    for(int i = 0; i<currentEvents.countNodes(); i++){
         PriorityList::Node* current = currentEvents.findNode(i);
         current->priority --;
-        if(current->priority==0){
+        if(current->priority <= 0){
             //ih ala ele perdeu!
             currentEvents.remNode(i);
             lifes--;
@@ -30,7 +29,23 @@ void EMSManager::update(){
     }
 }
 
-void EMSManager::addOccourence(){
-    random()%50;
+int EMSManager::getLifes(){
+    return lifes;
+}
+
+void EMSManager::showListOccourances(){
+    ImGui::Begin("EMS");
+    for(int i = 0; i<currentEvents.countNodes(); i++){
+        PriorityList::Node* n = currentEvents.findNode(i);
+        ImGui::Text("uma %s em %d de prioridade %d", n->occurrence.description.c_str(), n->occurrence.place, n->priority);
+    }
+    ImGui::End();
+}
+
+void EMSManager::drawOccourence(){
+    Occurrence* oc = &(randomEvents.chooseOne(abs(rand()%50))->occurrence);
+    if(oc != nullptr){
+        currentEvents.addNode(*oc);
+    }
     
 }

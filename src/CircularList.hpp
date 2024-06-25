@@ -3,11 +3,14 @@
 
 #include "types.hpp"
 #include <iostream> 
+#include <fstream>
+#include <string>
+#include <vector>
 
 class CircularList{
 
 public:
-    typedef struct Node {
+    struct Node {
         Occurrence occurrence;
         Node* next;
     };

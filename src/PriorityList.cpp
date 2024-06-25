@@ -18,17 +18,13 @@ int PriorityList::getPriority(Occurrence* oc){
     return oc->priority;
 } //pega a prioridade da struct occurrence e retorna o valor dela;
 
-PriorityList::Node *PriorityList::newNode(Occurrence oc){ //o mesmo método que o da Circular list, porém agora olhando a prioridade
-    Node* newElement = (Node*) malloc (sizeof (Node)); //alocação dinâmica dos nós
-    newElement->occurrence = oc;
-    newElement->nextNode = nullptr;
-    newElement->priority = getPriority(&oc);//identifier getPriority is undefined
-    return newElement;
-} //cria um novo nó a partir de uma ocorrencia
-
-void PriorityList::addNode(Occurrence oc, int priority){
-    Node* newElem = newNode(oc);
-    if (firstElement == nullptr || firstElement->priority < priority){
+void PriorityList::addNode(Occurrence oc){
+    Node* newElem = new Node();
+    newElem->occurrence.description = oc.description;
+    newElem->occurrence.priority = oc.priority;
+    newElem->occurrence.place = oc.place;
+    newElem->priority = oc.priority;
+    if (firstElement == nullptr || firstElement->priority < newElem->occurrence.priority){
         newElem->nextNode = firstElement;
         firstElement = newElem;
     } else{
@@ -67,11 +63,23 @@ PriorityList::Node* PriorityList::findNode(unsigned int index){
     return currElement;
 }
 
+unsigned int PriorityList::countNodes(){
+    return countNodes(firstElement);
+}
 
+unsigned int PriorityList::countNodes(Node* node){
+    if (node == nullptr){
+        return 0;
+    }else{
+        return countNodes(node->nextNode)+1;
+    }
+}
+
+/*
 unsigned int PriorityList::countNodes() const{}//conta os nós e mantém uma quantidade fixa de nós... mesmo que essa não seja a função da lista com prioridade
 unsigned int PriorityList::findVal(int value) const{}//verifica se a ocorrencia ja foi atendida
 void PriorityList::showList() const{} //teoricamente mostraria na tela (?)
-
+*/
 
 
 

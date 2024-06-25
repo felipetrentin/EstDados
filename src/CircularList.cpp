@@ -5,92 +5,171 @@
 #include "CircularList.hpp"
 #include "types.hpp"
 
-CircularList::CircularList() : head(nullptr) {} //implementa o construtor, em que o sentinela de cabeça é nulo
+CircularList::CircularList() : 
+    head(nullptr) 
+{} // implementa o construtor, em que o sentinela de cabeça é nulo
 
 CircularList::~CircularList(){
-  Node* currElement = head->next;
-  while (currElement !=head){
-    Node* next = currElement->next;
-    delete currElement;
-    currElement = next;
-  }
-  delete head;
-  head = nullptr;
-} //destrutor
+    Node *currElement = head->next;
+    while (currElement != head)
+    {
+        Node *next = currElement->next;
+        delete currElement;
+        currElement = next;
+    }
+    delete head;
+    head = nullptr;
+} // destrutor
 
-//métodos
-CircularList::Node* CircularList::newNode(Occurrence oc){
-  Node* newElement = (Node*) malloc (sizeof (Node*)); //alocação dinâmica dos nós
-  newElement->occurrence = oc; 
-  newElement->next = nullptr;
-  return newElement;
-} //cria um nó com a ocorrência e um ponteiro nulo que vai deixar de ser nulo na adição
+// métodos
+CircularList::Node *CircularList::newNode(Occurrence oc){
+    Node *newElement = (Node *)malloc(sizeof(Node *)); // alocação dinâmica dos nós
+    newElement->occurrence = oc;
+    newElement->next = nullptr;
+    return newElement;
+} // cria um nó com a ocorrência e um ponteiro nulo que vai deixar de ser nulo na adição
 
 void CircularList::addNode(Occurrence oc){
-  Node *currElement = newNode(oc); //too many arguments 
-  if (head==nullptr){
-    head = currElement;
-    currElement->next = head;
-  }
-  else{
-    Node *temp = head;
-    while (temp->next != head){
-      temp = temp->next;
+    Node *currElement = newNode(oc); // too many arguments
+    if (head == nullptr)
+    {
+        head = currElement;
+        currElement->next = head;
     }
-    temp = currElement;
-    currElement->next = head;
-  }
-} //adiciona os nós no fim da lista circular
+    else
+    {
+        Node *temp = head;
+        while (temp->next != head)
+        {
+            temp = temp->next;
+        }
+        temp = currElement;
+        currElement->next = head;
+    }
+} // adiciona os nós no fim da lista circular
 
 void CircularList::removeNode(Occurrence oc){
-  Node* previous = nullptr;
-  Node* currElement = head;
 
-  do{
-    if(
-      currElement->occurrence.place == oc.place && 
-      currElement->occurrence.priority == oc.priority) {
-      if (previous == nullptr){
-        previous->next = currElement->next;
-        if (currElement == head){
-          head = currElement->next;
-        }
-        delete currElement;
-        return;
-      }
-      else{
-        Node* last = head;
-        while (last->next != head){
-          last = last->next;
-        } //aqui eu garanto que o last é o último da lista percorrendo a lista toda
-        if (last == head){
-          delete head;
-          head = nullptr;
-          return;
-        } else{
-          last->next = head->next;
-          delete head;
-          head = last;
-          return; 
-        }
+    Node *previous = nullptr;
+    Node *currElement = head;
 
-      }
+    do
+    {
+        if (
+            currElement->occurrence.place == oc.place &&
+            currElement->occurrence.priority == oc.priority)
+        {
+            if (previous == nullptr)
+            {
+                previous->next = currElement->next;
+                if (currElement == head)
+                {
+                    head = currElement->next;
+                }
+                delete currElement;
+                return;
+            }
+            else
+            {
+                Node *last = head;
+                while (last->next != head)
+                {
+                    last = last->next;
+                } // aqui eu garanto que o last é o último da lista percorrendo a lista toda
+                if (last == head)
+                {
+                    delete head;
+                    head = nullptr;
+                    return;
+                }
+                else
+                {
+                    last->next = head->next;
+                    delete head;
+                    head = last;
+                    return;
+                }
+            }
+        }
+    } while (currElement != head);
+} // remover um nó
+
+CircularList::Node *CircularList::chooseOne(int spin){
+    Node *curr = head;
+    /*
+    for (int i = 0; i < spin; i++)
+    { // anda um
+        if(curr->next != nullptr){
+            curr = curr->next;
+        }
     }
-  }while(currElement!=head);
-} //remover um nó 
+    //removeNode(curr->occurrence);
+    return curr;
+    */
+   return head;
+} // função que vai roletar e remover o nó roletado
 
-CircularList::Node* CircularList::chooseOne(int spin){
-  Node* curr = head;
-  Node* temp = nullptr;
-  for (int i=0; i<spin; i++){ //anda um
-    curr = curr->next;
-  }
-  return curr;
-  removeNode(curr->occurrence);
-} //função que vai roletar e remover o nó roletado
-
-
-
-
-
-
+bool CircularList::loadCSV(std::string path){
+    std::string segment;
+    std::ifstream myfile ("example.txt");
+    if (myfile.is_open())
+    {
+        int segId = 0;
+        Occurrence* occ = nullptr;
+        while (getline(myfile,segment,','))
+        {
+            //description,priority,HOUSE,APARTMENT,OFFICE,ROUNDABOUT,CROSSING
+            switch (segId)
+            {
+            case 0:
+                occ = new Occurrence();
+                occ->description = segment;
+                segId++;
+                break;
+            case 1:
+                if(segment == "HIGH"){
+                    occ->priority == HIGH;
+                }else if(segment == "MEDIUM"){
+                    occ->priority == MEDIUM;
+                }else if(segment == "LOW"){
+                    occ->priority == LOW;
+                }else{
+                    occ->priority == NON;
+                }
+                segId++;
+                break;
+            case 2:
+                occ->place |= (std::stoi(segment) & 1); //coloca o bit menos sig. no priority;
+                occ->place = occ->place << 1; // desloca pra esquerda
+                segId++;
+                break;
+            case 3:
+                occ->place |= (std::stoi(segment) & 1); //coloca o bit menos sig. no priority;
+                occ->place = occ->place << 1; // desloca pra esquerda
+                segId++;
+                break;
+            case 4:
+                occ->place |= (std::stoi(segment) & 1); //coloca o bit menos sig. no priority;
+                occ->place = occ->place << 1; // desloca pra esquerda
+                segId++;
+                break;
+            case 5:
+                occ->place |= (std::stoi(segment) & 1); //coloca o bit menos sig. no priority;
+                occ->place = occ->place << 1; // desloca pra esquerda
+                segId++;
+                break;
+            case 6:
+                occ->place |= (std::stoi(segment) & 1); //coloca o bit menos sig. no priority;
+                occ->place = occ->place << 1; // desloca pra esquerda
+                addNode(*occ);
+                delete occ;
+                segId = 0;
+                break;
+            }
+        }
+        myfile.close();
+        return true;
+    }else{
+        return false;
+    }
+}

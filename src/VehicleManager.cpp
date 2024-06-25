@@ -10,12 +10,7 @@ VehichleManager::VehichleManager(Graph* graph, sf::Clock* gameClock) :
 }
 
 Vehicle* VehichleManager::getVehicle(int id){
-    if(id < numOfUnits_ && id>=0){
-        return automobiles.get(id);
-    }else{
-        return nullptr;
-    }
-    
+    return automobiles.get(id);
 }
 
 
@@ -39,7 +34,7 @@ sf::Vector2f VehichleManager::getVehiclePos(Vehicle* ve){
         */
         float t = (ve->speed * dt)/distance;
         if (t > 1.0f){
-            t = 1.1f;
+            t = 1.0f;
         }
         return lerp(
             sf::Vector2f(startVert->posX, startVert->posY), 
