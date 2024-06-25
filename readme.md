@@ -68,6 +68,9 @@ Espaço $O(n)$
 
 Funciona com as mesmas vantagens da lista ligada, contudo, o último elemento da sua lista tem um ponteiro que aponta para o primeiro. Essa estrutura foi escolhida para fazer o lançamento de ocorrências a serem solucionadas pelo jogador, a fim de trazer aleatoriedade como uma espécie de roleta de ocorrências. Essa estrutura foi utilizada pois além de facilitar a remoção, inserção e flexibilidade de alocação de memória, ela poderia ser percorrida circularmente por um determinado número de vezes, sem muito esforço. 
 
+## Lista com prioridade
+É uma combinação entre Fila com prioridade e lista ligada. Precisávamos de uma estrutura que armazenasse a prioridade, porém permitisse a remoção em qualquer ponto, sem utilizar outras estruturas auxiliares. Logo, implementou-se a lista com prioridade.
+
 ### Fila
 Complexidade para o caso médio:
 
@@ -102,7 +105,7 @@ Busca $O(log(n))$
 
 Espaço $O(n)$
 
-A árvore de decisão foi implementada no AssistenteJJ que vai auxiliar o jogador a tomar a melhor decisão de caminho para atender as ocorrências.
+A árvore de decisão será implementada no AssistenteJJ que vai auxiliar o jogador a tomar a melhor decisão de caminho para atender as ocorrências.
 
 ## Árvore AVL
 Complexidade para o caso médio:
@@ -122,4 +125,4 @@ Complexidade para o caso médio:
 Tempo $O(n^2)$
 Espaço $O(n^2)$
 
-As matrizes de adjacência são um dos jeitos que se pode visualizar um grafo. Elas foram utilizadas como base para o nosso mapa, com os vértices sendo os locais, por exemplo casas, hospitais, postos de polícia etc, e as arestas sendo as ruas e avenidas por onde os carros irão passar. 
+Matrizes de adjacência é um dos jeitos que se pode visualizar um grafo. Ela é a base para o nosso mapa, com os vértices sendo os locais, por exemplo casas, hospitais, postos de polícia etc, e as arestas sendo as ruas e avenidas por onde os carros irão passar. 
