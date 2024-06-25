@@ -68,7 +68,7 @@ Espaço $O(n)$
 
 Funciona com as mesmas vantagens da lista ligada, contudo, o último elemento da sua lista tem um ponteiro que aponta para o primeiro. Essa estrutura foi escolhida para fazer o lançamento de ocorrências a serem solucionadas pelo jogador, a fim de trazer aleatoriedade como uma espécie de roleta de ocorrências. Essa estrutura foi utilizada pois além de facilitar a remoção, inserção e flexibilidade de alocação de memória, ela poderia ser percorrida circularmente por um determinado número de vezes, sem muito esforço. 
 
-## Lista com prioridade
+### Lista com prioridade
 É uma combinação entre Fila com prioridade e lista ligada. Precisávamos de uma estrutura que armazenasse a prioridade, porém permitisse a remoção em qualquer ponto, sem utilizar outras estruturas auxiliares. Logo, implementou-se a lista com prioridade.
 
 ### Fila
