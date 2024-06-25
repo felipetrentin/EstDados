@@ -1,4 +1,5 @@
 #include "Stack.hpp"
+using namespace std;
 
 class Stack {
 private:
@@ -17,10 +18,10 @@ public:
         delete[] stackArray;
     }
 
-    // Função push
-    void push(int value) {
+   void push(int value) {
         if (top >= size - 1) {
-            throw std::overflow_error("Stack overflow");
+            std::cout << "Stack overflow" << std::endl;
+            return;
         }
         stackArray[++top] = value;
     }
@@ -28,31 +29,32 @@ public:
     // Função pop
     int pop() {
         if (top < 0) {
-            throw std::underflow_error("Stack underflow");
+            std::cout << "Stack underflow" << std::endl;
+            return -1;
         }
         return stackArray[top--];
     }
 
-    // Função seek - mostra o topo
-    int seek() const {
+    // mostra o topo
+    int top() const {
         if (top < 0) {
-            throw std::underflow_error("Stack is empty");
+            std::cout << "Stack is empty" << std::endl;
+            return -1;
         }
         return stackArray[top];
     }
-
-    // Função para verificar se a pilha está vazia
+    // verificar se está vazia
     bool isEmpty() const {
         return top < 0;
     }
 
-    // Função para verificar se a pilha está cheia
+    // verificar se está cheia
     bool isFull() const {
         return top >= size - 1;
     }
 
-    // Função para exibir os elementos da pilha (opcional)
-    void display() const {
+    // exibir os elementos da pilha para debug
+    void displayText() const {
         if (isEmpty()) {
             std::cout << "Stack is empty." << std::endl;
             return;

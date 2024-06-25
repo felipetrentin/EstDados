@@ -9,6 +9,7 @@ Application::Application() :
     window_(sf::VideoMode(1920, 1080), "Meanwhile in Baltimore: [compiled: " __DATE__ " " __TIME__ "]", sf::Style::Default, settings),
     map_(ncasas),
     view1(sf::FloatRect(0.f, 0.f, window_.getSize().x, window_.getSize().y)),
+    eventsManager(5),
     vManager_(&map_, &gameClock)
 {
     window_.setVerticalSyncEnabled(true);
@@ -184,6 +185,7 @@ void Application::run() {
     if(!loadGraph("map.xml")){
         printf("\nERROR LOADING MAP!\n");
     }
+    eventClock.restart();
 
     gameClock.restart();
 
@@ -212,6 +214,13 @@ void Application::run() {
         }else{
             scrolling = false;
         }
+
+        ImGui::SFML::Update(window_, deltaClock.restart());
+
+        if(eventClock.getElapsedTime().asMilliseconds() >= 1000){
+            eventClock.restart();
+            
+        }
         dt_ = deltaClock.restart();
         ImGui::SFML::Update(window_, dt_);
         milisElapsedTick_ += dt_.asMilliseconds();
@@ -222,6 +231,7 @@ void Application::run() {
         }
 
         draw();
+        
 
     }
 

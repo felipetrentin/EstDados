@@ -10,8 +10,10 @@
 #include <imgui.h>
 #include <string>
 
+#include <string>
 #include "rapidxml_utils.hpp"
 #include "graph.hpp"
+#include "EMSManager.hpp"
 #include "VehicleManager.hpp"
 
 class Application{
@@ -37,6 +39,9 @@ private:
     float dtHist_[100];
     bool scrolling = false;
     sf::Vector2i scrollPos_ = sf::Vector2i(0,0);
+    sf::Clock eventClock;
+    EMSManager eventsManager;
+
     uint32_t milisElapsedTick_ = 0;
     VehichleManager vManager_;
 };
