@@ -104,61 +104,63 @@ CircularList::Node *CircularList::chooseOne(int spin){
 
 bool CircularList::loadCSV(std::string path){
     std::string segment;
+    std::string line;
     std::ifstream myfile (path);
     if (myfile.is_open())
     {
         int segId = 0;
         Occurrence* occ = nullptr;
-        while (getline(myfile,segment,','))
-        {
-            //description,priority,HOUSE,APARTMENT,OFFICE,ROUNDABOUT,CROSSING
-            switch (segId)
-            {
-            case 0:
-                occ = new Occurrence();
-                occ->description = segment;
-                segId++;
-                break;
-            case 1:
-                if(segment == "HIGH"){
-                    occ->priority == HIGH;
-                }else if(segment == "MEDIUM"){
-                    occ->priority == MEDIUM;
-                }else if(segment == "LOW"){
-                    occ->priority == LOW;
-                }else{
-                    occ->priority == NON;
+        while (getline(myfile,line)){
+            std::stringstream linestream(line);
+            while(getline(linestream,segment, ',')){
+                //description,priority,HOUSE,APARTMENT,OFFICE,ROUNDABOUT,CROSSING
+                switch (segId){
+                case 0:
+                    occ = new Occurrence();
+                    occ->description = segment;
+                    segId++;
+                    break;
+                case 1:
+                    if(segment == "HIGH"){
+                        occ->priority == HIGH;
+                    }else if(segment == "MEDIUM"){
+                        occ->priority == MEDIUM;
+                    }else if(segment == "LOW"){
+                        occ->priority == LOW;
+                    }else{
+                        occ->priority == NON;
+                    }
+                    segId++;
+                    break;
+                case 2:
+                    occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
+                    occ->place = occ->place << 1; // desloca pra esquerda
+                    segId++;
+                    break;
+                case 3:
+                    occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
+                    occ->place = occ->place << 1; // desloca pra esquerda
+                    segId++;
+                    break;
+                case 4:
+                    occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
+                    occ->place = occ->place << 1; // desloca pra esquerda
+                    segId++;
+                    break;
+                case 5:
+                    occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
+                    occ->place = occ->place << 1; // desloca pra esquerda
+                    segId++;
+                    break;
+                case 6:
+                    occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
+                    occ->place = occ->place << 1; // desloca pra esquerda
+                    addNode(occ);
+                    delete occ;
+                    occ = nullptr;
+                    segId = 0;
+                    break;
                 }
-                segId++;
-                break;
-            case 2:
-                occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
-                occ->place = occ->place << 1; // desloca pra esquerda
-                segId++;
-                break;
-            case 3:
-                occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
-                occ->place = occ->place << 1; // desloca pra esquerda
-                segId++;
-                break;
-            case 4:
-                occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
-                occ->place = occ->place << 1; // desloca pra esquerda
-                segId++;
-                break;
-            case 5:
-                occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
-                occ->place = occ->place << 1; // desloca pra esquerda
-                segId++;
-                break;
-            case 6:
-                occ->place |= (segment == "1"); //coloca o bit menos sig. no priority;
-                occ->place = occ->place << 1; // desloca pra esquerda
-                addNode(occ);
-                delete occ;
-                occ = nullptr;
-                segId = 0;
-                break;
             }
         }
         myfile.close();
