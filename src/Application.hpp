@@ -44,6 +44,16 @@ private:
 
     uint32_t milisElapsedTick_ = 0;
     VehichleManager vManager_;
+
+    sf::Clock drawClock;
+    sf::Clock vehicleTickClock;
+    sf::Clock EMSTickClock;
+    
+    uint32_t drawTime;
+    uint32_t vehicleTickTime;
+    uint32_t EMSTickTime;
+    
+
 };
 
 #endif

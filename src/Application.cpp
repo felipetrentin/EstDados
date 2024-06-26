@@ -52,6 +52,7 @@ void Application::drawInfo(){
     }
     //gráfico de performance com média
     if(ImGui::CollapsingHeader("Performance")){
+        ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.4f, 1.0f), "loopTime:");
         ImGui::Text("dt: %lldus", dt_.asMicroseconds());
         
         float average = 0.0f;
@@ -61,6 +62,13 @@ void Application::drawInfo(){
         char overlay[32];
         sprintf(overlay, "avg %7.2fus", average);
         ImGui::PlotLines("", dtHist_, IM_ARRAYSIZE(dtHist_), 1, overlay, 3000.0f, 50000.0f, ImVec2(0,120));
+
+        ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.4f, 1.0f), "Event Management System Time:");
+        ImGui::Text("t: %lldus", EMSTickTime);
+        ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.4f, 1.0f), "Vehicle update time:");
+        ImGui::Text("t: %lldus", vehicleTickTime);
+        ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.4f, 1.0f), "Draw time:");
+        ImGui::Text("t: %lldus", drawTime);
     }
 
     //mostra as posições dos carros no grafo
@@ -227,7 +235,9 @@ void Application::run() {
             eventClock.restart();
             //EMS event
             if(eventsManager.getLifes() > 0){
+                EMSTickClock.restart();
                 eventsManager.update();
+                EMSTickTime = EMSTickClock.getElapsedTime().asMicroseconds();
             }else{
                 ImGui::Begin("game over");
                 ImGui::Text("você perdeu sua ultima vida!");
@@ -244,10 +254,13 @@ void Application::run() {
         if(milisElapsedTick_ >= 100){
             milisElapsedTick_ = 0;
             //game tick update (vehicles)
+            vehicleTickClock.restart();
             vManager_.update();
+            vehicleTickTime = vehicleTickClock.getElapsedTime().asMicroseconds();
         }
-
+        drawClock.restart();
         draw();
+        drawTime = drawClock.getElapsedTime().asMicroseconds();
         
 
     }
