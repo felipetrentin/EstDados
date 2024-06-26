@@ -39,14 +39,14 @@ jobs:
 
     - name: Build
       run: cmake --build build --config Release -j $(nproc)
-    - name: List
-      run: ls -r build/bin/*
+    - name: Compact
+      run: tar -zcvf MIB-${{ github.ref_name }}-${{ matrix.platform.os }}.tar.gz build/bin
     - name: Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: >-
-        gh release create ${{ github.ref }}
-        "build/bin/*"
+        gh release create ${{ github.head_ref }}
+        "MIB-${{ github.ref_name }}-${{ matrix.platform.os }}.tar.gz"
         --generate-notes
-        --title "Version ${{ github.ref_name }} ${{ matrix.platform.os }}"
+        --title "Version-${{ github.ref_name }}-${{ matrix.platform.os }}"
         
