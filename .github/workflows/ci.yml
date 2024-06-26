@@ -17,8 +17,8 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-        - { name: Windows VS2019, os: windows-2019  }
-        #- { name: Windows VS2022, os: windows-2022  }
+        #- { name: Windows VS2019, os: windows-2019  }
+        - { name: Windows VS2022, os: windows-2022  }
         #- { name: Linux GCC,      os: ubuntu-latest }
         #- { name: Linux Clang,    os: ubuntu-latest, flags: -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ }
         #- { name: macOS,          os: macos-latest  }
@@ -48,7 +48,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: >-
-        gh release create ${{ steps.vars.outputs.sha_short }}-${{matrix.config.name}}
+        gh release create ${{ steps.vars.outputs.sha_short }}-${{ github.ref_name }}-${{matrix.config.name}}-${{ matrix.platform.os }}
         "MIB-${{ github.ref_name }}-${{ matrix.platform.os }}.tar.gz"
         --generate-notes
         --title "Version-${{ github.ref_name }}-${{ matrix.platform.os }}"
