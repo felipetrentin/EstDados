@@ -47,5 +47,4 @@ void EMSManager::drawOccourence(){
     if(oc != nullptr){
         currentEvents.addNode(oc);
     }
-    
 }

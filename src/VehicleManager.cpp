@@ -1,5 +1,7 @@
 #include "VehicleManager.hpp"
 
+#define vagas 5
+
 VehichleManager::VehichleManager(Graph* graph, sf::Clock* gameClock) :
     numOfUnits_(0),
     graph_(graph),
@@ -139,20 +141,25 @@ void VehichleManager::update(){
             curr->source = curr->destination;
             curr->traveling = false;
 
-            //se nó atual tem um carro e se é do tipo que come o carro
+            //se nó atual tem um carro e se é do tipo que estaciona o carro
             graph_->getVeichle(destination);
             switch (destination->type){ //pensei em pegar o nodetype e fazer switch case
             /*Fiquei na dúvida de como faria pra instanciar pilhas, filas e arrays pra tantos nós ao mesmo tempo
             Provavelmente vai precisar usar ponteiro algumas vezes. Não consegui implementar direito*/
                 case 1:
                     //HOSPITAL - fila
-                    QueueVehicle hospQueue = new QueueVehicle(); //eu instancio uma fila de veiculos do hospital
+                    //QueueVehicle::QueueVehicle(int size)
+                    QueueVehicle hospQueue = new QueueVehicle(vagas); //eu instancio uma fila de veiculos do hospital
                     if (hospQueue.isFull()){ 
-                        //fila cheia, não cabe mais
+                        //mostra um aviso que não pode mais colocar carro
                     }
                     else{
+                        automobiles.remove() //remover da árvore
+                            //Node* remove(Node* node, int key);
                         //pego veículo do vertice
+                        
                         //coloco na fila
+                        hospQueue.enqueue(curr);
                     }
                     
                     //ta. mas e quando eu precisar que esse veículo saia daqui?
@@ -181,8 +188,8 @@ void VehichleManager::update(){
 
                 case 3:
                     //FIREBRIGADE - array - posso tirar qual eu quiser, quando eu quiser
-                    n = 5; //número possível de carros no mesmo posto 
-                    Vehicle firebrig[n]
+                    Vehicle firebrig[vagas] //vagas do posto - do tipo vehicle
+
                     break;
             };
         }
