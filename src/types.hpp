@@ -25,7 +25,7 @@ typedef struct Occurrence {
     int priority;
 }Occurrence;
 
-enum priority_type{ //tá certo declarar assim?
+enum priority_type{
     HIGH = 45,
     MEDIUM = 90,
     LOW = 135, 

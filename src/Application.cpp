@@ -147,7 +147,7 @@ bool Application::loadGraph(std::string path){
 
     rapidxml::file<> xmlFile(path.c_str()); // Default template is char
     rapidxml::xml_document<> doc;
-    doc.parse<0>(xmlFile.data());
+    doc.parse<0>(xNodemlFile.data());
 
     rapidxml::xml_node<> *city = doc.first_node("city");
     if(city == nullptr){

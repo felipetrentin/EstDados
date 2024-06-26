@@ -17,7 +17,7 @@ EMSManager::EMSManager(int lives) :
 
 //updates acontecem cad
 void EMSManager::update(){
-    //abaixar um em tudo
+    //diminuidor de prioridade - abaixa um em tudo
     for(int i = 0; i<currentEvents.countNodes(); i++){
         PriorityList::Node* current = currentEvents.findNode(i);
         current->priority --;

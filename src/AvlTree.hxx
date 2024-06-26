@@ -1,4 +1,4 @@
-#ifndef AVL_TREE_HPP
+#ifndef AVL_TREE_HXX
 #include "AvlTree.hpp"
 #endif
 

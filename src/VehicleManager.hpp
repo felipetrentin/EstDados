@@ -21,6 +21,7 @@ public:
     void vehiclesDebugMenu();
     void update();
     void spawnVehichle(int vehicleID, int nodeID);
+    void destroyVehicle(int vehicleID, int nodeId);
     sf::Vector2f getVehiclePos(Vehicle* ve);
     int getNumUnits();
     bool arrived(Vehicle* ve);

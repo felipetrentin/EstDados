@@ -118,7 +118,14 @@ void VehichleManager::spawnVehichle(int vehichleID, int nodeID){
     graph_->setVeichle(nodeID, &ve);
 }
 
-// updates all cars to see if they have 
+//destroying the vehicles
+void VehicleManager::destroyVehicle(int vehicleID, int nodeID){
+    numOfUnits_ --;
+    automobiles.remove(vehicleID);
+    graph.setVeichle(vehicleID, nullptr);
+}
+
+// updates all cars
 void VehichleManager::update(){
     for(int i = 0; i<numOfUnits_; i++){
         Vehicle* curr = automobiles.get(i);
@@ -131,6 +138,53 @@ void VehichleManager::update(){
             //atualizamos a posição no grafico
             curr->source = curr->destination;
             curr->traveling = false;
+
+            //se nó atual tem um carro e se é do tipo que come o carro
+            graph_->getVeichle(destination);
+            switch (destination->type){ //pensei em pegar o nodetype e fazer switch case
+            /*Fiquei na dúvida de como faria pra instanciar pilhas, filas e arrays pra tantos nós ao mesmo tempo
+            Provavelmente vai precisar usar ponteiro algumas vezes. Não consegui implementar direito*/
+                case 1:
+                    //HOSPITAL - fila
+                    QueueVehicle hospQueue = new QueueVehicle(); //eu instancio uma fila de veiculos do hospital
+                    if (hospQueue.isFull()){ 
+                        //fila cheia, não cabe mais
+                    }
+                    else{
+                        //pego veículo do vertice
+                        //coloco na fila
+                    }
+                    
+                    //ta. mas e quando eu precisar que esse veículo saia daqui?
+                    //fila pop 
+                    //vertice tem veiculo --> manda veiculo embora
+                
+                    break;
+
+                case 2:
+                    //POLICE - pilha
+                    //instancia pilha
+                    if (polStack.isFull()){
+
+                    }
+                    else{
+                        //pego veículo do vertice
+                        //coloco ele na pilha
+                    }
+
+                    //pra tirar --> qual é a condição pra remover mesmo??
+                    //pilha pop
+                    //vertice tem veiculo --> manda veículo embora
+
+                    
+                    break;
+
+                case 3:
+                    //FIREBRIGADE - array - posso tirar qual eu quiser, quando eu quiser
+                    n = 5; //número possível de carros no mesmo posto 
+                    Vehicle firebrig[n]
+                    break;
+            };
         }
     }
 }
@@ -163,7 +217,7 @@ bool VehichleManager::arrived(Vehicle* ve){
 
 
 VehichleManager::~VehichleManager(){
-    automobiles.~AVLTree();
+    automobiles.~AVLTree(); //automobiles é a arvore avl
 }
 
 // linear interpolation
