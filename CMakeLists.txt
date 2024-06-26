@@ -6,6 +6,12 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
+if ( MSVC )
+    set(LIBRARY_OUTPUT_DIRECTORY_DEBUG ${RUNTIME_OUTPUT_DIRECTORY} )
+    set(LIBRARY_OUTPUT_DIRECTORY_RELEASE ${RUNTIME_OUTPUT_DIRECTORY} )
+    # etc for the other available configuration types (MinSizeRel, RelWithDebInfo)
+endif ( MSVC )
+
 #install SFML DearImgui and SFML-Imgui
 add_subdirectory(dependencies)
 
