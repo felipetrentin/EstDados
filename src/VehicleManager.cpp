@@ -159,6 +159,7 @@ bool VehichleManager::arrived(Vehicle* ve){
 
         return (ve->speed * dt) > graph_->getWeight(ve->source, ve->destination);
     }
+    return false;
 }
 
 
