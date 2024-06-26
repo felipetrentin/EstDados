@@ -13,9 +13,8 @@ Application::Application() :
     eventsManager(5) // quantidade de vidas do jogador
 {
     window_.setVerticalSyncEnabled(true);
-    if(!font_.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSans.ttf")){
-        font_.loadFromFile("C:\\Windows\\Fonts\\comic.ttf");
-    }
+    
+    font_.loadFromFile("FreeSans.ttf");
 }
 
 void Application::drawAssistant(){
