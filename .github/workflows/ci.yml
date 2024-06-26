@@ -18,12 +18,12 @@ jobs:
       matrix:
         platform:
         - { name: Windows VS2019, os: windows-2019  }
-        - { name: Windows VS2022, os: windows-2022  }
-        - { name: Linux GCC,      os: ubuntu-latest }
+        #- { name: Windows VS2022, os: windows-2022  }
+        #- { name: Linux GCC,      os: ubuntu-latest }
         #- { name: Linux Clang,    os: ubuntu-latest, flags: -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ }
-        - { name: macOS,          os: macos-latest  }
+        #- { name: macOS,          os: macos-latest  }
         config:
-        - { name: Shared, flags: -DBUILD_SHARED_LIBS=TRUE }
+        #- { name: Shared, flags: -DBUILD_SHARED_LIBS=TRUE }
         - { name: Static, flags: -DBUILD_SHARED_LIBS=FALSE }
 
     steps:
@@ -45,7 +45,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: >-
-        gh release create ${{ github.head_ref }}
+        gh release create ${{ github.ref }}-${{matrix.config.name}}
         "MIB-${{ github.ref_name }}-${{ matrix.platform.os }}.tar.gz"
         --generate-notes
         --title "Version-${{ github.ref_name }}-${{ matrix.platform.os }}"
