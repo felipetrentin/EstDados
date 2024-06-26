@@ -40,7 +40,7 @@ jobs:
     - name: Build
       run: cmake --build build --config Release -j $(nproc)
     - name: List
-      run: ls build/bin/
+      run: ls -r build/bin/*
     - name: Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
