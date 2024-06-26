@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 project(estruturaDeDados)
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
@@ -19,7 +21,7 @@ add_custom_command(
         TARGET main POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
                 ${CMAKE_SOURCE_DIR}/content/
-                ${CMAKE_CURRENT_BINARY_DIR}/bin/content/)
+                ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/content/)
 
 if(WIN32)
     add_custom_command(
