@@ -171,7 +171,7 @@ void AVLTree<T>::deleteTree(Node* node) {
 
 template <typename T>
 T* AVLTree<T>::get(int key){
-    find(root, key);
+    return &(find(root, key)->val);
 }
 
 template <typename T>

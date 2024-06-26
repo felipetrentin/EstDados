@@ -12,7 +12,7 @@ atendido em maior ou menor tempo, em que a prioridade é dada de forma decrescen
 EMSManager::EMSManager(int lives) :
     lifes(lives)
 {
-    randomEvents.loadCSV("datasetReduzido.csv");
+    randomEvents.loadCSV("content/datasetReduzido.csv");
 }
 
 //updates acontecem cad
