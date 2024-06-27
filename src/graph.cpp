@@ -96,14 +96,16 @@ std::vector<LinkedList> Graph::dijkstra(int src)
             if (!sptSet[v] && //não visitamos
                 getWeight(u, v) && //tem peso != 0
                 dist[u] != INT_MAX && //não é infinito
-                dist[u] + getWeight(u, v) < dist[v]){ //tem peso menor doq o ja visitado
+                dist[u] + getWeight(u, v) < dist[v] &&
+                getVeichle(v) == nullptr
+                ){ //tem peso menor doq o ja visitado
                     //se ele bate todos esses requisitos, acabamos de achar um caminho mais curto!
                     //salvamos na lista de distâncias como a melhor solução atual
                     dist[v] = dist[u] + getWeight(u, v);
                     //copyLinked(from, to)
                     //copiamos a lista que usamos para chegar em U e adicionamos o proximo passo, V
-                    minPath[j].copyLinked(minPath[u])
-                    minPath[j].add(j)
+                    minPath[v].copyLinked(minPath[u]);
+                    minPath[v].add(v);
                 }
     }
     return minPath;
