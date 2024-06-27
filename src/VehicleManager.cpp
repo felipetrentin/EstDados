@@ -143,53 +143,103 @@ void VehichleManager::update(){
 
             //se nó atual tem um carro e se é do tipo que estaciona o carro
             graph_->getVeichle(destination);
-            switch (destination->type){ //pensei em pegar o nodetype e fazer switch case
+            switch (destination->type){ //pensei em pegar o nodetype para o switch case
             /*Fiquei na dúvida de como faria pra instanciar pilhas, filas e arrays pra tantos nós ao mesmo tempo
             Provavelmente vai precisar usar ponteiro algumas vezes. Não consegui implementar direito*/
                 case 1:
                     //HOSPITAL - fila
-                    //QueueVehicle::QueueVehicle(int size)
-                    QueueVehicle hospQueue = new QueueVehicle(vagas); //eu instancio uma fila de veiculos do hospital
-                    if (hospQueue.isFull()){ 
+                    QueueVehicle hospQueue = new QueueVehicle(vagas); //instancia estrutura
+                    //verificação se a estrutura está vazia
+                     if (hospQueue.isFull()){ 
                         //mostra um aviso que não pode mais colocar carro
                     }
+                    //não está vazia:
                     else{
-                        automobiles.remove() //remover da árvore
-                            //Node* remove(Node* node, int key);
+                        //quero inserir um carro na estrutura
+                        if{
                         //pego veículo do vertice
-                        
-                        //coloco na fila
-                        hospQueue.enqueue(curr);
-                    }
-                    
-                    //ta. mas e quando eu precisar que esse veículo saia daqui?
-                    //fila pop 
-                    //vertice tem veiculo --> manda veiculo embora
-                
-                    break;
+                        hospQueue.enqueue(curr);//coloco ele na estrutura
+                        //removo veiculo do vertice 
+                        //removo veiculo da arvore avl 
+                        }
+                        //quero tirar um carro da estrutura
+                        //verifica se n ta vazia
+                        else{
+                            if(hospQueue.isEmpty()){
+                                //fala que não dá pra remover por estar vazia
+                            }
+                            else{
+                                //adiciona na arvore
+                                //adiciona no grafo
+                                //remove da estrutura
+                            }
+                            //vertice tem o veiculo -> manda o veículo embora pra atender o chamado
+                        }
+                    } 
+                    break;                
 
                 case 2:
                     //POLICE - pilha
-                    //instancia pilha
+                    //instancia estrutura
+                    //verificação se a estrutura está vazia
                     if (polStack.isFull()){
-
+                        //mostra um aviso que não pode mais colocar carro
                     }
+                    //não está vazia:
                     else{
+                        //quero inserir um carro na estrutura
+                        if{
                         //pego veículo do vertice
                         //coloco ele na pilha
-                    }
-
-                    //pra tirar --> qual é a condição pra remover mesmo??
-                    //pilha pop
-                    //vertice tem veiculo --> manda veículo embora
-
-                    
+                        //removo veiculo do vertice
+                        //removo veiculo da arvore
+                        }
+                        //quero tirar um carro da estrutura
+                        //verifica se n ta vazia
+                        else{
+                            if(polStack.isEmpty){
+                                //fala que não dá pra remover por estar vazia
+                            }
+                            else{
+                                //adiciona na arvore
+                                //adiciona no grafo
+                                //remove da estrutura
+                            }
+                            //vertice tem o veiculo -> manda o veículo embora pra atender o chamado
+                        }
+                    } 
                     break;
 
                 case 3:
                     //FIREBRIGADE - array - posso tirar qual eu quiser, quando eu quiser
-                    Vehicle firebrig[vagas] //vagas do posto - do tipo vehicle
-
+                    Vehicle firebrig[vagas]//instancia estrutura - aqui pode ser um array
+                    //verificação se a estrutura está vazia
+                    if (){
+                        //mostra um aviso que não pode mais colocar carro
+                    }
+                    //não está vazia:
+                    else{
+                        //quero inserir um carro na estrutura
+                        if{
+                        //pego veículo do vertice
+                        //coloco ele na pilha
+                        //removo veiculo do vertice
+                        //removo veiculo da arvore
+                        }
+                        //quero tirar um carro da estrutura
+                        //verifica se n ta vazia
+                        else{
+                            if(){
+                                //fala que não dá pra remover por estar vazia
+                            }
+                            else{
+                                //adiciona na arvore
+                                //adiciona no grafo
+                                //remove da estrutura
+                            }
+                            //vertice tem o veiculo -> manda o veículo embora pra atender o chamado
+                        }
+                    } 
                     break;
             };
         }
