@@ -20,6 +20,7 @@ private:
     PriorityList currentEvents;
     CircularList randomEvents;
     int lifes;
+    int offset;
 };
 
 

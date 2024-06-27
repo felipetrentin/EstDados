@@ -1,29 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<city name="Baltimore">
+<city name="Metropolis">
     <nodes>
-        <node id="0" name="other Harbor" type="4" x="-100" y="100" />
-        <node id="1" name="Inner Harbor" type="4" x="100" y="100" />
-        <node id="2" name="Camden Yards" type="3" x="200" y="200" />
-        <node id="3" name="Fort McHenry" type="2" x="300" y="0" />
-        <node id="4" name="National Aquarium" type="6" x="400" y="100" />
-        <node id="5" name="Johns Hopkins University" type="1" x="500" y="150" />
-        <node id="6" name="Baltimore Museum of Art" type="4" x="600" y="100" />
-        <node id="7" name="Baltimore Convention Center" type="2" x="700" y="250" />
-        <node id="8" name="Fell's Point" type="1" x="80" y="400" />
+        <node id="0" name="Central Park" type="4" x="0" y="0" />
+        <node id="1" name="Downtown" type="4" x="100" y="100" />
+        <node id="2" name="City Hall" type="3" x="200" y="200" />
+        <node id="3" name="Museum District" type="2" x="300" y="0" />
+        <node id="4" name="Harbor" type="6" x="400" y="100" />
+        <node id="5" name="University" type="1" x="500" y="150" />
+        <node id="6" name="Art Gallery" type="4" x="600" y="100" />
+        <node id="7" name="Convention Center" type="2" x="700" y="250" />
+        <node id="8" name="Historic District" type="1" x="800" y="400" />
+        <node id="9" name="Financial District" type="5" x="900" y="300" />
+        <node id="10" name="Tech Park" type="3" x="1000" y="100" />
+        <node id="11" name="Residential Area" type="1" x="1100" y="200" />
+        <node id="12" name="Sports Arena" type="4" x="1200" y="300" />
+        <node id="13" name="Library" type="2" x="1300" y="0" />
+        <node id="14" name="Zoo" type="6" x="1400" y="100" />
+        <node id="15" name="Hospital" type="1" x="1500" y="150" />
+        <node id="16" name="Train Station" type="4" x="1600" y="100" />
+        <node id="17" name="Airport" type="2" x="1700" y="250" />
+        <node id="18" name="Shopping Mall" type="1" x="1800" y="400" />
+        <node id="19" name="Botanical Garden" type="5" x="1900" y="300" />
     </nodes>
     <edges>
-        <edge from="0" to="2" distance="1.5" />
-        <edge from="1" to="0" distance="1.5" />
-        <edge from="1" to="2" distance="1.5" />
-        <edge from="2" to="1" distance="1.5" />
-        <edge from="1" to="4" distance="0.5" />
-        <edge from="1" to="7" distance="0.7" />
-        <edge from="2" to="7" distance="0.3" />
-        <edge from="3" to="1" distance="3.0" />
-        <edge from="4" to="5" distance="3.5" />
-        <edge from="4" to="8" distance="1.2" />
-        <edge from="5" to="6" distance="2.0" />
-        <edge from="6" to="1" distance="4.0" />
-        <edge from="8" to="1" distance="2.0" />
+        <edge from="0" to="1" distance="1.5" />
+        <edge from="0" to="2" distance="2.0" />
+        <edge from="0" to="3" distance="2.5" />
+        <edge from="0" to="4" distance="3.0" />
+        <edge from="0" to="5" distance="3.5" />
+        <edge from="1" to="6" distance="2.0" />
+        <edge from="1" to="7" distance="2.5" />
+        <edge from="1" to="8" distance="3.0" />
+        <edge from="1" to="9" distance="3.5" />
+        <edge from="1" to="10" distance="4.0" />
+        <edge from="2" to="11" distance="2.0" />
+        <edge from="2" to="12" distance="2.5" />
+        <edge from="2" to="13" distance="3.0" />
+        <edge from="2" to="14" distance="3.5" />
+        <edge from="2" to="15" distance="4.0" />
+        <edge from="3" to="16" distance="2.0" />
+        <edge from="3" to="17" distance="2.5" />
+        <edge from="3" to="18" distance="3.0" />
+        <edge from="3" to="19" distance="3.5" />
+        <edge from="3" to="4" distance="4.0" />
+        <edge from="4" to="5" distance="2.0" />
+        <edge from="4" to="6" distance="2.5" />
+        <edge from="4" to="7" distance="3.0" />
+        <edge from="4" to="8" distance="3.5" />
+        <edge from="4" to="9" distance="4.0" />
+        <edge from="5" to="10" distance="2.0" />
+        <edge from="5" to="11" distance="2.5" />
+        <edge from="5" to="12" distance="3.0" />
+        <edge from="5" to="13" distance="3.5" />
+        <edge from="5" to="14" distance="4.0" />
+        <edge from="6" to="15" distance="2.0" />
+        <edge from="6" to="16" distance="2.5" />
+        <edge from="6" to="17" distance="3.0" />
+        <edge from="6" to="18" distance="3.5" />
+        <edge from="6" to="19" distance="4.0" />
+        <edge from="7" to="8" distance="2.0" />
+        <edge from="7" to="9" distance="2.5" />
+        <edge from="7" to="10" distance="3.0" />
+        <edge from="7" to="11" distance="3.5" />
+        <edge from="7" to="12" distance="4.0" />
+        <edge from="8" to="13" distance="2.0" />
+        <edge from="8" to="14" distance="2.5" />
+        <edge from="8" to="15" distance="3.0" />
+        <edge from="8" to="16" distance="3.5" />
+        <edge from="8" to="17" distance="4.0" />
+        <edge from="9" to="18" distance="2.0" />
+        <edge from="9" to="19" distance="2.5" />
+        <edge from="9" to="10" distance="3.0" />
+        <edge from="9" to="11" distance="3.5" />
+        <edge from="9" to="12" distance="4.0" />
+        <edge from="10" to="13" distance="2.0" />
+        <edge from="10" to="14" distance="2.5" />
+        <edge from="10" to="15" distance="3.0" />
+        <edge from="10" to="16" distance="3.5" />
+        <edge from="10" to="17" distance="4.0" />
+        <edge from="11" to="18" distance="2.0" />
+        <edge from="11" to="19" distance="2.5" />
+        <edge from="11" to="12" distance="3.0" />
+        <edge from="11" to="13" distance="3.5" />
+        <edge from="11" to="14" distance="4.0" />
+        <edge from="12" to="15" distance="2.0" />
+        <edge from="12" to="16" distance="2.5" />
+        <edge from="12" to="17" distance="3.0" />
+        <edge from="12" to="18" distance="3.5" />
+        <edge from="12" to="19" distance="4.0" />
+        <edge from="13" to="14" distance="2.0" />
+        <edge from="13" to="15" distance="2.5" />
+        <edge from="13" to="16" distance="3.0" />
+        <edge from="13" to="17" distance="3.5" />
+        <edge from="13" to="18" distance="4.0" />
+        <edge from="14" to="19" distance="2.0" />
+        <edge from="14" to="15" distance="2.5" />
+        <edge from="14" to="16" distance="3.0" />
+        <edge from="14" to="17" distance="3.5" />
+        <edge from="14" to="18" distance="4.0" />
+        <edge from="15" to="16" distance="2.0" />
+        <edge from="15" to="17" distance="2.5" />
+        <edge from="15" to="18" distance="3.0" />
+        <edge from="15" to="19" distance="3.5" />
+        <edge from="16" to="17" distance="2.0" />
+        <edge from="16" to="18" distance="2.5" />
+        <edge from="16" to="19" distance="3.0" />
+        <edge from="17" to="18" distance="2.0" />
+        <edge from="17" to="19" distance="2.5" />
+        <edge from="18" to="19" distance="2.0" />
     </edges>
 </city>

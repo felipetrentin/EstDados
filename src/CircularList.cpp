@@ -90,7 +90,7 @@ void CircularList::removeNode(Occurrence oc){
 } // remover um nó
 
 CircularList::Node *CircularList::chooseOne(int spin){
-    Node *curr = head;
+    Node* curr = head;
     for (int i = 0; i < spin; i++)
     { // anda um
         if(curr->next != nullptr){
@@ -99,7 +99,6 @@ CircularList::Node *CircularList::chooseOne(int spin){
     }
     //removeNode(curr->occurrence);
     return curr;
-   return head;
 } // função que vai roletar e remover o nó roletado
 
 bool CircularList::loadCSV(std::string path){

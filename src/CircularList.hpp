@@ -26,7 +26,7 @@ public:
 
 private:
     Node* head; //sentinela de cabeça da lista
-
+    Node* lastNode;
 };
 
 #endif

@@ -19,16 +19,25 @@ int PriorityList::getPriority(Occurrence* oc){
 } //pega a prioridade da struct occurrence e retorna o valor dela;
 
 void PriorityList::addNode(Occurrence *oc){
-    Node* newElem = new Node();
-    newElem->occurrence.description = oc->description;
-    newElem->occurrence.priority = oc->priority;
-    newElem->occurrence.place = oc->place;
-    newElem->priority = oc->priority;
-    if (firstElement == nullptr || firstElement->priority < newElem->occurrence.priority){
-        newElem->nextNode = firstElement;
-        firstElement = newElem;
-    } else{
+    Node* newElem = new Node(*oc, oc->priority);
+    if(firstElement != nullptr){
+        if(firstElement->priority > newElem->priority){
+            newElem->nextNode = firstElement;
+            firstElement = newElem;
+            return;
+        }
         Node* aux = firstElement;
+        while(aux->nextNode != nullptr && (aux->nextNode->priority < newElem->priority)){
+            aux = aux->nextNode;
+        }
+        if(aux->nextNode == nullptr){
+            aux->nextNode = newElem;
+        }else{
+            newElem->nextNode = aux->nextNode;
+            aux->nextNode = newElem;
+        }
+    }else{
+        firstElement = newElem;
     }
 }//adiciona nó na ista com prioridade 
 
@@ -36,25 +45,28 @@ void PriorityList::remNode(int index){//remove o nó --> tem duas condições pr
     if (firstElement == nullptr) {
         return;
     }
-    if (index == 0) {
-        Node* oldNode = firstElement;
+    if(index == 0){
+        Node* delNode = firstElement;
         firstElement = firstElement->nextNode;
-        delete oldNode;
+        delete delNode;
         return;
     }
-
-    Node* currNode = findNode(index - 1);
-    if (currNode == nullptr || currNode->nextNode == nullptr) {
+    Node* prevNode = findNode(index - 1);
+    if (prevNode->nextNode == nullptr) {
         return; // Índice fora dos limites
     }
-    Node* oldNode = currNode->nextNode;
-    currNode->nextNode = currNode->nextNode->nextNode;
+    if(prevNode->nextNode->nextNode == nullptr){
+        delete prevNode->nextNode;
+        return;
+    }
+    Node* oldNode = prevNode->nextNode;
+    prevNode->nextNode = prevNode->nextNode->nextNode;
     delete oldNode;
 }
 
-PriorityList::Node* PriorityList::findNode(unsigned int index){
+PriorityList::Node* PriorityList::findNode(int index){
     Node* currElement = firstElement;
-    for (unsigned int i = 0; i < index; ++i) {
+    for (int i = 0; i < index; ++i) {
         if (currElement == nullptr) {
             return nullptr; // Índice fora dos limites
         }
@@ -63,16 +75,16 @@ PriorityList::Node* PriorityList::findNode(unsigned int index){
     return currElement;
 }
 
-unsigned int PriorityList::countNodes(){
-    return countNodes(firstElement);
-}
-
-unsigned int PriorityList::countNodes(Node* node){
-    if (node == nullptr){
-        return 0;
-    }else{
-        return countNodes(node->nextNode)+1;
+int PriorityList::countNodes(){
+    int i = 0;
+    Node* aux = firstElement;
+    while (aux != nullptr)
+    {
+        aux = aux->nextNode;
+        i++;
     }
+    return i;
+    
 }
 
 /*

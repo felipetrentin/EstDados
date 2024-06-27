@@ -12,21 +12,46 @@ atendido em maior ou menor tempo, em que a prioridade é dada de forma decrescen
 EMSManager::EMSManager(int lives) :
     lifes(lives)
 {
-    randomEvents.loadCSV("content/datasetReduzido.csv");
+    //randomEvents.loadCSV("content/datasetReduzido.csv");
 }
 
 //updates acontecem cad
 void EMSManager::update(){
     //abaixar um em tudo
     for(int i = 0; i<currentEvents.countNodes(); i++){
-        PriorityList::Node* current = currentEvents.findNode(i);
-        current->priority --;
-        if(current->priority <= 0){
-            //ih ala ele perdeu!
-            currentEvents.remNode(i);
-            lifes--;
+        PriorityList::Node* n = currentEvents.findNode(i);
+        n->priority--;
+    }
+    //apagar mortos
+    PriorityList::Node* elem = nullptr;
+    bool repeat = false;
+    elem = currentEvents.findNode(0);
+    if(elem != nullptr){
+        if(elem->priority <= 0){
+            currentEvents.remNode(0);
+            lifes --;
+            repeat = true;
+        }else{
+            repeat = false;
         }
     }
+    
+    /*
+    for(int i = 0; i<times; i++){
+        PriorityList::Node* current = currentEvents.findNode(i - offset);
+        if(current != nullptr){
+            if(current->priority <= 0){
+                //ih ala ele perdeu!
+                currentEvents.remNode(i);
+                lifes--;
+                i++;
+                offset++;
+            }else{
+                current->priority --;
+            }
+        }
+    }
+    */
 }
 
 int EMSManager::getLifes(){
@@ -40,12 +65,22 @@ void EMSManager::showListOccourances(){
         ImGui::Text("uma %s em %d de prioridade %d", n->occurrence.description.c_str(), n->occurrence.place, n->priority);
     }
     ImGui::End();
+    /*
+    if(lifes <= 0){
+        ImGui::Begin("você perdeu o jogo");
+        ImGui::Text("você perdeu!!");
+        ImGui::SetWindowSize(ImVec2(500, 500));
+        ImGui::SetWindowPos(ImVec2(1000, 500));
+        ImGui::End();
+    }
+    */
 }
 
 void EMSManager::drawOccourence(){
-    Occurrence* oc = &(randomEvents.chooseOne(5)->occurrence);
-    if(oc != nullptr){
-        currentEvents.addNode(oc);
-    }
+    Occurrence oc;//= (randomEvents.chooseOne(rand()%1000)->occurrence);
+    oc.description = "aaa";
+    oc.place = 10;
+    oc.priority = rand()%10 + 3;
+    currentEvents.addNode(&oc);
     
 }

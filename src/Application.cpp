@@ -93,6 +93,9 @@ void Application::drawInfo(){
         if(ImGui::Button("sortear ocorrência")){
             eventsManager.drawOccourence();
         }
+        if(ImGui::Button("update")){
+            eventsManager.update();
+        }
     }
 
     ImGui::End();
@@ -237,7 +240,7 @@ void Application::run() {
             //EMS event
             if(eventsManager.getLifes() > 0){
                 EMSTickClock.restart();
-                eventsManager.update();
+                //eventsManager.update();
                 EMSTickTime = EMSTickClock.getElapsedTime().asMicroseconds();
             }else{
                 ImGui::Begin("game over");
