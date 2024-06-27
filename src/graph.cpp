@@ -56,12 +56,12 @@ std::vector<LinkedList> Graph::dijkstra(int src)
     std::vector<LinkedList> minPath;
     minPath.resize(numVertices, LinkedList());
 
-    int* dist = malloc(sizeof(int)*numVertices); 
+    int* dist = (int*) malloc(sizeof(int)*numVertices); 
                 // The output array.  dist[i] will hold the
                  // shortest
     // distance from src to i
 
-    bool* sptSet = malloc(sizeof(bool)*numVertices); // sptSet[i] will be true if vertex i is
+    bool* sptSet = (bool*) malloc(sizeof(bool)*numVertices); // sptSet[i] will be true if vertex i is
                     // included in shortest
     // path tree or shortest distance from src to i is
     // finalized
