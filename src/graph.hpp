@@ -22,7 +22,7 @@ public:
     Vehicle* getVeichle(int vertice);
     Vertice* getVertice(int vertice);
     int getWeight(int src, int dest);
-    std::vector<LinkedList> dijkstra(int src)
+    std::vector<LinkedList> dijkstra(int src);
 };
 
 #endif
