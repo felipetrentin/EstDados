@@ -13,7 +13,8 @@ Application::Application() :
     eventsManager(5) // quantidade de vidas do jogador
 {
     window_.setVerticalSyncEnabled(true);
-    font_.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSans.ttf");
+    
+    font_.loadFromFile("content/fonts/FreeSans.ttf");
 }
 
 void Application::drawAssistant(){
@@ -198,7 +199,7 @@ void Application::run() {
         printf("\nError initialising SFML\n");
     }
 
-    if(!loadGraph("map.xml")){
+    if(!loadGraph("content/map.xml")){
         printf("\nERROR LOADING MAP!\n");
     }
     eventClock.restart();
