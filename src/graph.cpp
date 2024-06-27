@@ -35,13 +35,13 @@ int Graph::getWeight(int src, int dest){
     return adjMatrix[src][dest];
 }
 
-int minDistance(int dist[], bool sptSet[])
+int Graph::minDistance(int dist[], bool sptSet[])
 {
 
     // Initialize min value
     int min = INT_MAX, min_index;
 
-    for (int v = 0; v < V; v++)
+    for (int v = 0; v < numVertices; v++)
         if (sptSet[v] == false && dist[v] <= min)
             min = dist[v], min_index = v;
 
@@ -56,11 +56,12 @@ std::vector<LinkedList> Graph::dijkstra(int src)
     std::vector<LinkedList> minPath;
     minPath.resize(numVertices, LinkedList());
 
-    int dist[numVertices]; // The output array.  dist[i] will hold the
+    int* dist = malloc(sizeof(int)*numVertices); 
+                // The output array.  dist[i] will hold the
                  // shortest
     // distance from src to i
 
-    bool sptSet[numVertices]; // sptSet[i] will be true if vertex i is
+    bool* sptSet = malloc(sizeof(bool)*numVertices); // sptSet[i] will be true if vertex i is
                     // included in shortest
     // path tree or shortest distance from src to i is
     // finalized

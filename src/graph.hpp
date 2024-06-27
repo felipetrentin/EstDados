@@ -11,6 +11,7 @@ private:
     int numVertices;
     std::vector<std::vector<int>> adjMatrix; // matriz de adjacência entre cada um dos nós
     std::vector<Vertice> nodeInfo; // Array de ponteiros genéricos para armazenar informações adicionais de cada nó
+    int minDistance(int dist[], bool sptSet[]);
 
 public:
     Graph();
