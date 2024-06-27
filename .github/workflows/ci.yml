@@ -48,7 +48,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: >-
-        gh release create "${{ steps.vars.outputs.sha_short }}-${{matrix.config.name}}-${{ matrix.platform.os }}
+        gh release create "${{ steps.vars.outputs.sha_short }}-${{matrix.config.name}}-${{ matrix.platform.os }}"
         "MIB-${{ steps.vars.outputs.sha_short }}-${{ matrix.platform.os }}.tar.gz"
         --generate-notes
         --title "Version-${{ steps.vars.outputs.sha_short }}-${{ github.ref_name }}-${{ matrix.platform.os }}"
