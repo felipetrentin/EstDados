@@ -27,6 +27,9 @@ jobs:
         - { name: Static, flags: -DBUILD_SHARED_LIBS=FALSE }
 
     steps:
+    - name: Set outputs
+      id: vars
+      run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
     - name: Install Linux Dependencies
       if: runner.os == 'Linux'
       run: sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libudev-dev libopenal-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev
@@ -40,16 +43,13 @@ jobs:
     - name: Build
       run: cmake --build build --config Release -j $(nproc)
     - name: Compact
-      run: tar -zcvf MIB-${{ github.ref_name }}-${{ matrix.platform.os }}.tar.gz build/bin
-    - name: Set outputs
-      id: vars
-      run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      run: tar -zcvf MIB-${{ steps.vars.outputs.sha_short }}-${{ matrix.platform.os }}.tar.gz build/bin
     - name: Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: >-
         gh release create ${{ steps.vars.outputs.sha_short }}-${{ github.ref_name }}-${{matrix.config.name}}-${{ matrix.platform.os }}
-        "MIB-${{ github.ref_name }}-${{ matrix.platform.os }}.tar.gz"
+        "MIB-${{ steps.vars.outputs.sha_short }}-${{ matrix.platform.os }}.tar.gz"
         --generate-notes
-        --title "Version-${{ github.ref_name }}-${{ matrix.platform.os }}"
+        --title "Version-${{ steps.vars.outputs.sha_short }}-${{ github.ref_name }}-${{ matrix.platform.os }}"
         
