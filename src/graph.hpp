@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 
+#include "LinkedList.hpp"
 #include "types.hpp"
 
 class Graph {
@@ -21,6 +22,7 @@ public:
     Vehicle* getVeichle(int vertice);
     Vertice* getVertice(int vertice);
     int getWeight(int src, int dest);
+    std::vector<LinkedList> dijkstra(int src)
 };
 
 #endif

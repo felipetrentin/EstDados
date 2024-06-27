@@ -1,5 +1,7 @@
 #include "graph.hpp"
 
+#define MAXVERTICES 100
+
 
 Graph::Graph(int numVertices) : numVertices(numVertices){
     adjMatrix.resize(numVertices, std::vector<int>(numVertices, 0)); // Inicializa matriz de adjacência com zeros.
@@ -31,4 +33,78 @@ Vertice *Graph::getVertice(int vertice){
 
 int Graph::getWeight(int src, int dest){
     return adjMatrix[src][dest];
+}
+
+int minDistance(int dist[], bool sptSet[])
+{
+
+    // Initialize min value
+    int min = INT_MAX, min_index;
+
+    for (int v = 0; v < V; v++)
+        if (sptSet[v] == false && dist[v] <= min)
+            min = dist[v], min_index = v;
+
+    return min_index;
+}
+
+// Function that implements Dijkstra's single source
+// shortest path algorithm for a graph represented using
+// adjacency matrix representation
+std::vector<LinkedList> Graph::dijkstra(int src)
+{
+    std::vector<LinkedList> minPath;
+    minPath.resize(numVertices, LinkedList());
+
+    int dist[numVertices]; // The output array.  dist[i] will hold the
+                 // shortest
+    // distance from src to i
+
+    bool sptSet[numVertices]; // sptSet[i] will be true if vertex i is
+                    // included in shortest
+    // path tree or shortest distance from src to i is
+    // finalized
+
+    // Initialize all distances as INFINITE and stpSet[] as
+    // false
+    for (int i = 0; i < numVertices; i++)
+        dist[i] = INT_MAX, sptSet[i] = false;
+
+    // Distance of source vertex from itself is always 0
+    dist[src] = 0;
+
+    // Find shortest path for all vertices
+    for (int count = 0; count < numVertices - 1; count++) {
+        // Pick the minimum distance vertex from the set of
+        // vertices not yet processed. u is always equal to
+        // src in the first iteration.
+        int u = minDistance(dist, sptSet);
+
+        // u guarda o indice do ultimo vetor de menor tamanho
+
+        // Mark the picked vertex as processed
+        sptSet[u] = true;
+
+        // Update dist value of the adjacent vertices of the
+        // picked vertex.
+        for (int v = 0; v < numVertices; v++)
+
+            // Update dist[v] only if is not in sptSet,
+            // there is an edge from u to v, and total
+            // weight of path from src to  v through u is
+            // smaller than current value of dist[v]
+            if (!sptSet[v] && //não visitamos
+                getWeight(u, v) && //tem peso != 0
+                dist[u] != INT_MAX && //não é infinito
+                dist[u] + getWeight(u, v) < dist[v]){ //tem peso menor doq o ja visitado
+                    //se ele bate todos esses requisitos, acabamos de achar um caminho mais curto!
+                    //salvamos na lista de distâncias como a melhor solução atual
+                    dist[v] = dist[u] + getWeight(u, v);
+                    //copyLinked(from, to)
+                    //copiamos a lista que usamos para chegar em U e adicionamos o proximo passo, V
+                    minPath[j].copyLinked(minPath[u])
+                    minPath[j].add(j)
+                }
+    }
+    return minPath;
 }

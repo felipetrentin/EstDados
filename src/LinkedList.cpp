@@ -31,20 +31,15 @@ void LinkedList::printList() const {
 }*/
 
 // Método para adicionar um elemento no final da lista
-void LinkedList::addEnd(int value) {
+void LinkedList::add(int value) {
     Node* newNode = createNode(value); //cria um nó com o novo valor
 
     // Caso a lista esteja vazia, o novo nó se torna o primeiro
     if (head == nullptr) {
         head = newNode;
     } else {
-        // Encontra o último nó
-        Node* aux = head;
-        while (aux->next != nullptr) {
-            aux = aux->next;
-        }
-        // Adiciona o novo nó no final
-        aux->next = newNode;
+        // define o nó como o o proximo do ultimo elemento
+        getLastElement()->next = newNode;
     }
 }
 
@@ -81,6 +76,29 @@ void LinkedList::removeNode(int value) {
     }
 }
 
+Node* LinkedList::getNode(int id){
+    Node* current = head;
+    for(int i=0; i<id; i++){
+        if (current->next != nullptr){
+            current = current->next;
+        }else{
+            return nullptr;
+        }
+    }
+    return current;
+}
+
+int LinkedList::getSize(){
+    Node* thisNode = head;
+    int size = 0;
+    while (thisNode != nullptr)
+    {
+        thisNode = thisNode->next;
+        size++;
+    }
+    return size;
+}
+
 // Liberar a memória alocada pela lista
 void LinkedList::freeMemory() {
     Node* current = head;
@@ -93,4 +111,41 @@ void LinkedList::freeMemory() {
     }
 
     head = nullptr;
+}
+void LinkedList::addNext(Node* node, int value){
+    if(node != nullptr){
+        if(node->next == nullptr){
+            //se este está no final da lista
+            node->next = createNode(value);
+        }else{
+            //se estamos adicionando no meio
+            Node* aux = node->next;
+            node->next = createNode(value);
+            node->next->next = aux;
+        }
+    }
+}
+
+Node* LinkedList::getLastElement(){
+    Node* aux = head;
+    if(aux != nullptr){
+        while (aux->next != nullptr) {
+            aux = aux->next;
+        }
+    }
+    return aux;
+}
+
+void  LinkedList::copyLinked(LinkedList exemploDoFilho){
+    freeMemory();
+    Node* startNode = exemploDoFilho.getNode(0); //head do exemplo
+    Node* danode = head; //head desse
+    if(startNode != nullptr){
+        //se a lista exemplo não for nula
+        for(int i = 0; i < exemploDoFilho.getSize(); i++){
+            addNext(danode, startNode->value);
+            startNode = startNode->next;
+            danode = danode->next;
+        }
+    }
 }

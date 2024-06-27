@@ -23,10 +23,14 @@ public:
 
     // Métodos
     //void printList() const; //imprime a lista
-    void addEnd(int value); //adiciona ao final da lista
+    void add(int value); //adiciona ao final da lista
     void removeNode(int value); //remove um nó
     void freeMemory(); //libera a memória
-
+    int getSize();
+    void copyLinked(LinkedList exemploDoFilho);
+    Node* getNode(int id);
+    Node* getLastElement();
+    void addNext(Node* node, int value);
 private:
     // Métodos privados
     Node* createNode(int value); //Cria um novo nó
